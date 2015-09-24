@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <!-- buttons -->
+    <LinearLayout
+        style="@style/SecurityPreferenceButtonContainer"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:id="@+id/buttons">
+
+        <!-- left / top button: skip, or re-try -->
+        <Button android:id="@+id/cancel_button"
+            style="@style/SecurityPreferenceButton"
+            android:text="@string/lockpassword_cancel_label"
+            android:onClick="onClick"/>
+
+        <!-- right / bottom button: confirm or ok -->
+        <Button android:id="@+id/next_button"
+            style="@style/SecurityPreferenceButton"
+            android:text="@string/lockpassword_alternate_label"
+            android:onClick="onClick"/>
+
+    </LinearLayout>
+
+    <!-- status instructions -->
+    <TextView
+        android:id="@+id/header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dip"
+        android:layout_below="@id/buttons"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <!-- timeout status -->
+    <TextView
+        android:id="@+id/timeout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="25dip"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <!-- fingerprint image view -->
+    <ImageView android:id="@+id/fingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dip"
+        android:layout_weight="1"
+        android:layout_below="@id/header_text"
+        android:layout_above="@id/timeout"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/fingerprint"
+        android:scaleType="centerInside"
+        android:maxWidth="200dip"
+        android:adjustViewBounds="true"/>
+
+    <!-- finger print sensor led and swipe animations -->
+    <ViewStub android:id="@+id/fp_sensor_stub"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+
+</RelativeLayout>

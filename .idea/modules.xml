@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FingerPrint-master.iml" filepath="$PROJECT_DIR$/FingerPrint-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MaterialPreference/MaterialPreference.iml" filepath="$PROJECT_DIR$/MaterialPreference/MaterialPreference.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Silead/Silead.iml" filepath="$PROJECT_DIR$/Silead/Silead.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Synaptics/Synaptics.iml" filepath="$PROJECT_DIR$/Synaptics/Synaptics.iml" />
+    </modules>
+  </component>
+</project>

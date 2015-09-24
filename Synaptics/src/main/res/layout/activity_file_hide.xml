@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/navigation_layout" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:divider="@null"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/tv_no_hide_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="没有隐藏的照片"
+        android:textSize="20sp" />
+
+</RelativeLayout>

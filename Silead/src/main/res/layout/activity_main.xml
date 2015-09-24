@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drag_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/title_bar_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_fingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip" >
+
+        <ImageView
+            android:id="@+id/iv_finger"
+            android:layout_width="95dip"
+            android:layout_height="95dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:paddingBottom="20dip"
+            android:paddingTop="14dip"
+            android:src="@mipmap/finger" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_finger"
+            android:orientation="vertical"
+            android:paddingLeft="8dip" >
+
+            <TextView
+                android:id="@+id/tv_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manager_finger_print"
+                android:textColor="@color/text_title_color"
+                android:textSize="16dip" />
+
+            <TextView
+                android:id="@+id/tv_content1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title1"
+                android:paddingTop="10dip"
+                android:text="@string/enroll_or_remove_finger_print"
+                android:textColor="@color/text_content_color" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="0.1dip"
+        android:layout_below="@id/rl_fingerprint"
+        android:background="@color/white"
+        android:paddingTop="30dip" />
+
+    <RelativeLayout
+        android:id="@+id/rl_applock"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line1" >
+
+        <ImageView
+            android:id="@+id/iv_applock"
+            android:layout_width="95dip"
+            android:layout_height="95dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:paddingBottom="20dip"
+            android:paddingTop="14dip"
+            android:src="@mipmap/app_lock" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_applock"
+            android:orientation="vertical"
+            android:paddingLeft="8dip" >
+
+            <TextView
+                android:id="@+id/tv_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_lock"
+                android:textColor="@color/text_title_color"
+                android:textSize="16dip" />
+
+            <TextView
+                android:id="@+id/tv_content2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title2"
+                android:paddingTop="10dip"
+                android:text="@string/app_may_be_locked"
+                android:textColor="@color/text_content_color" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="fill_parent"
+        android:layout_height="0.1dip"
+        android:layout_below="@id/rl_applock"
+        android:background="@color/white"
+        android:paddingTop="30dip" />
+
+    <RelativeLayout
+        android:id="@+id/rl_appswitch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line2" >
+
+        <ImageView
+            android:id="@+id/iv_appswitch"
+            android:layout_width="95dip"
+            android:layout_height="95dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:paddingBottom="20dip"
+            android:paddingTop="14dip"
+            android:src="@mipmap/app_switch" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_appswitch"
+            android:orientation="vertical"
+            android:paddingLeft="8dip" >
+
+            <TextView
+                android:id="@+id/tv_title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/switch_app"
+                android:textColor="@color/text_title_color"
+                android:textSize="16dip" />
+
+            <TextView
+                android:id="@+id/tv_content3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title3"
+                android:paddingTop="10dip"
+                android:text="@string/switch_app_content"
+                android:textColor="@color/text_content_color" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line3"
+        android:layout_width="fill_parent"
+        android:layout_height="0.1dip"
+        android:layout_below="@id/rl_appswitch"
+        android:background="@color/white"
+        android:paddingTop="30dip" />
+
+    <RelativeLayout
+        android:id="@+id/rl_hiddenfile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line3" >
+
+        <ImageView
+            android:id="@+id/iv_hiddenfile"
+            android:layout_width="95dip"
+            android:layout_height="95dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:paddingBottom="20dip"
+            android:paddingTop="14dip"
+            android:src="@mipmap/image_guise_logo_none" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_hiddenfile"
+            android:orientation="vertical"
+            android:paddingLeft="8dip" >
+
+            <TextView
+                android:id="@+id/tv_title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hidden_file"
+                android:textColor="@color/text_title_color"
+                android:textSize="16dip" />
+
+            <TextView
+                android:id="@+id/tv_content4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title4"
+                android:paddingTop="10dip"
+                android:text="@string/hidden_file_content"
+                android:textColor="@color/text_content_color" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line4"
+        android:layout_width="fill_parent"
+        android:layout_height="0.1dip"
+        android:layout_below="@id/rl_hiddenfile"
+        android:background="@color/white"
+        android:paddingTop="30dip" />
+
+    <LinearLayout
+        android:id="@+id/adLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+</RelativeLayout>

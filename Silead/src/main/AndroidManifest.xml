@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+    package="com.newschip.fingerprint"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14" />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.GET_TOP_ACTIVITY_INFO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 读取联系人权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!-- 拨打电话权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <permission android:name="android.permission.INJECT_EVENTS" />
+    //for ad
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <application
+        android:name=".application.NewschipApplication"
+        android:allowBackup="true"
+        android:allowTaskReparenting="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:theme="@style/MainTheme" >
+        <activity
+            android:name=".activity.PasswordActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" >
+        </activity> <activity
+            android:name=".activity.AboutActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.mine" >
+        </activity> <activity
+            android:name=".activity.ContactsActivity"
+            android:screenOrientation="portrait"
+             >
+        </activity>
+
+        <activity
+            android:name=".gallery.ViewPagerActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".gallery.PhotoSetActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".gallery.FileHideListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".gallery.AlbumeSetActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".video.VideoPageActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".video.VideoHideListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.newschip.fingerprint.activity.PhotoListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.newschip.fingerprint.activity.VideoListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".activity.WelcomeUIActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar" >
+        </activity>
+        <activity android:name=".activity.GuideUIActivity" >
+        </activity>
+        <activity android:name=".activity.ConfirmLockFingerprint" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.AppListActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="newschip.action.AppListActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.HideAppActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/hide_app"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="newschip.action.HideAppActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SwitchAppActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="newschip.action.SwitchAppActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gallery.AlbumeNewSetActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_theme" >
+            <intent-filter>
+                <action android:name="newschip.action.AlbumeNewSetActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.LoginRegisterActivity"
+            android:screenOrientation="portrait"
+             >
+        </activity>
+        <activity
+            android:name="com.newschip.fingerprint.activity.ManagerFingerPrint"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
+            android:name="com.newschip.fingerprint.activity.EnrollActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+        <service android:name=".service.WatchDogService" >
+        </service>
+
+        <receiver android:name=".receiver.BootReciver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".provider.AppLockProvider"
+            android:authorities="com.newschip.fingerprint.AppLockProvider"
+            android:exported="true" >
+        </provider>
+        <provider
+            android:name=".hide.HideProvider"
+            android:authorities="com.newschip.fingerprint.HideProvider"
+            android:exported="true" >
+        </provider>
+    </application>
+
+</manifest>

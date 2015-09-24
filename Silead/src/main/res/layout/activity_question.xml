@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar" />
+
+    <EditText
+        android:id="@+id/et_question"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_margin="36dip"
+        android:background="@drawable/edittext_backgroud"
+        android:contentDescription="@string/app_name"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/please_input_question"
+        android:imeOptions="actionDone"
+        android:padding="5dip"
+        android:singleLine="true"
+        android:textColorHint="#AAAAAA" />
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_margin="36dip"
+        android:background="@drawable/edittext_backgroud"
+        android:gravity="center_vertical"
+        android:padding="5dip"
+        android:textSize="18dip"
+        android:text="hello"
+        android:textColor="#AAAAAA" />
+
+    <EditText
+        android:id="@+id/et_answer"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_margin="36dip"
+        android:background="@drawable/edittext_backgroud"
+        android:contentDescription="@string/app_name"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/please_input_password"
+        android:imeOptions="actionDone"
+        android:padding="5dip"
+        android:singleLine="true"
+        android:textColorHint="#AAAAAA" />
+
+    <Button
+        android:id="@+id/confirm_button"
+        style="@style/dialog_blue_button"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="36dip"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/red_button_background"
+        android:text="@string/ok"
+        android:textSize="18dip" />
+
+</LinearLayout>

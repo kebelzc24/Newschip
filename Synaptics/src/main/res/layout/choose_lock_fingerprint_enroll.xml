@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <!-- buttons -->
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        style="@style/SecurityPreferenceButtonContainer"
+        android:layout_marginTop="40dip"
+        android:orientation="horizontal" >
+
+        <!-- left / top button: skip, or re-try -->
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/SecurityPreferenceButton"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/lockpassword_cancel_label" />
+
+        <!-- center image: LED -->
+
+        <ImageView
+            android:id="@+id/swipe_status"
+            android:layout_width="35dip"
+            android:layout_height="50dip"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="0dip"
+            android:src="@mipmap/led_swipe_none" />
+
+        <!-- right / bottom button: confirm or ok -->
+
+        <Button
+            android:id="@+id/next_button"
+            style="@style/SecurityPreferenceButton"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/lockpassword_alternate_label" />
+    </LinearLayout>
+
+    <!-- swipe to enroll text -->
+
+    <TextView
+        android:id="@+id/header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttons"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dip"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <!-- views from bottom -->
+
+    <TextView
+        android:id="@+id/enroll_percentage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dip"
+        android:gravity="center"
+        android:text="@string/percentage"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ProgressBar
+        android:id="@+id/enroll_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="10dip"
+        android:layout_above="@id/enroll_percentage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:max="100"
+        android:progressDrawable="@drawable/enroll_progress_bar" />
+
+    <!-- spacer between image view and statuses -->
+
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_above="@id/enroll_progress"
+        android:layout_weight="1" />
+
+    <!-- fingerprint image view -->
+
+    <ImageView
+        android:id="@+id/fingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/spacer"
+        android:layout_below="@id/header_text"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dip"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:maxWidth="200dip"
+        android:scaleType="centerInside"
+        android:src="@mipmap/image_guise_finger_logo_very"
+        android:visibility="invisible" />
+
+    <!-- enrollment video view -->
+
+    <VideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/spacer"
+        android:layout_below="@id/header_text"
+        android:layout_gravity="center"
+        android:layout_margin="5dip"
+        android:visibility="invisible" />
+
+    <!-- finger print sensor led and swipe animations -->
+
+    <ViewStub
+        android:id="@+id/fpSensorStub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

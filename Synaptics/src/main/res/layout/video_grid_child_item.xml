@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.newschip.fingerprint.tools.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/imageview_item_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/default_photo"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants" >
+
+        <com.newschip.fingerprint.tools.LocalImageView
+            android:id="@+id/vedio_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/vedio_player" >
+            </ImageView>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_ImageView_up"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:visibility="gone" >
+        </View>
+
+        <ImageView
+            android:id="@+id/child_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="8dp"
+            android:background="@drawable/pictures_select_icon"
+            android:button="@null" />
+
+        <!-- android:button="@drawable/pictures_select_icon" -->
+
+        <RelativeLayout
+            android:id="@+id/rl_name_count"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="#cc000000"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_video_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:singleLine="true"
+                android:text="30"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_size_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_video_name"
+                android:layout_marginLeft="8dp"
+                android:text="30"
+                android:textColor="#88ffffff" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</com.newschip.fingerprint.tools.SquareLayout>

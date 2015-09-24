@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.newschip.fingerprint.MainActivity" >
+
+    <item
+        android:id="@+id/action_lock"
+        android:icon="@mipmap/lock"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/action_lock"/>
+
+</menu>

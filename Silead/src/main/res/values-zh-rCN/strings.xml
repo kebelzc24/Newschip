@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">指通无限</string>
+    <string name="choose_app">选择应用</string>
+    <string name="app_lock">应用锁</string>
+    <string name="app_may_be_locked">可对应用加锁,保护您的隐私信息</string>
+    <string name="manager_finger_print">管理指纹</string>
+    <string name="enroll_or_remove_finger_print">录入或者删除指纹信息</string>
+    <string name="about_app">关于</string>
+    <string name="show_app_info">查看应用信息</string>
+    <string name="hide_app">伪装应用</string>
+    <string name="fast_dial">快速拨号</string>
+    <string name="fast_dial_content">长按指纹可快速拨打指定号码</string>
+    <string name="app_may_hide_in_other_app">将应用伪装在另外一个应用之下</string>
+    <string name="switch_app">快速切换应用</string>
+    <string name="open_switch_app">开启快速切换应用</string>
+    <string name="open_protect_app">开启应用锁</string>
+    <string name="switch_app_content">设置指纹和应用关联，可快速切换应用</string>
+    <string name="hided_app">已伪装的应用</string>
+    <string name="ok">确定</string>
+    <string name="rename">重命名</string>
+    <string name="delete">删除</string>
+    <string name="finger">指纹 %d</string>
+    <string name="finger_usage">该指纹可用于解锁</string>
+    <string name="finger_relate">应用已关联 %s</string>
+    <string name="finger_usage_with_app">该指纹可用于打开%s应用和解锁</string>
+    <string name="action_settings">设置</string>
+    <string name="action_lock">隐藏文件</string>
+    <string name="swipe_to_confirm">Swipe to confirm</string>
+    <string name="lift_your_finger">Please lift your finger</string>
+    <string name="please_wait">请稍后</string>
+    <string name="lockpassword_cancel_label">取消</string>
+    <string name="lockpassword_alternate_label">Alternate</string>
+    <string name="sensor_problem_use_alt_method">Sensor problem, please use alternate method</string>
+    <string name="verification_failed">验证失败</string>
+    <string name="fingerprint_captured">已获取指纹信息</string>
+    <string name="sensor_removed">Sensor has been removed</string>
+    <string name="sensor_not_found">Sensor not found</string>
+    <string name="lockscreen_too_many_failed_attempts_countdown">请在 %d 秒后重试.</string>
+    <string name="lockpassword_confirm_your_pattern_header">确认图案</string>
+    <string name="lockpattern_need_to_unlock">确认图案</string>
+    <string name="lockpattern_need_to_unlock_footer" />
+    <string name="lockpattern_need_to_unlock_wrong">请重试</string>
+    <string name="lockpattern_need_to_unlock_wrong_footer" />
+    <string name="lockpattern_too_many_failed_confirmation_attempts_header">失败次数太多!</string>
+    <string name="lockpattern_too_many_failed_confirmation_attempts_footer">请在 %d 秒后重试.</string>
+    <string name="enrollment">新建指纹</string>
+    <string name="fingerprint_options">指纹选项</string>
+    <string name="enroll_fingerprint">新建指纹</string>
+    <string name="help">帮助</string>
+    <string name="help_to_enroll">查看如何正确录指纹</string>
+    <string name="register_fingerprint_for_security">录入指纹用来解锁等操作</string>
+    <string name="set_alt_method">设置备用解锁方式</string>
+    <string name="alternate_method"> Alternate Method</string>
+    <string name="setup_pattern_pin_pwd">设置图案, PIN, 或者密码</string>
+    <string name="remove_enrolled_fingers">删除指纹</string>
+    <string name="remove_confirm">确定要删除 %s ?</string>
+    <string name="clear_alt_method_erase_all_fingers">清除所有的指纹信息及备用解锁方式</string>
+    <string name="done">完成</string>
+    <string name="setup_alt_method_to_finish">Setup alternate method to finish</string>
+    <string name="enroll_finger_to_register_unlock">Please enroll finger to register fingerprint for screen unlock.</string>
+    <string name="enroll_finger_to_finish">Enroll fingerprint to finish</string>
+    <string name="alternate_not_set">未设置</string>
+    <string name="pattern">图案</string>
+    <string name="pin">Pin</string>
+    <string name="password">密码</string>
+    <string name="alternate_pattern">已设置图案</string>
+    <string name="alternate_pin">已设置 PIN</string>
+    <string name="alternate_password">已设置密码</string>
+    <string name="alternate_notset">未设置</string>
+    <string name="retry">重试</string>
+    <string name="remove_all_fingerprints">删除所有保存的指纹信息？</string>
+    <string name="remove_fingerprints">删除该指纹信息？</string>
+    <string name="error">错误</string>
+    <string name="please_try_again">请重试</string>
+    <string name="swipe_to_enroll">Swipe to enroll</string>
+    <string name="please_swipe">Please swipe</string>
+    <string name="enrollment_failed">录入失败</string>
+    <string name="too_many_bad_swipes">Too many bad swipes</string>
+    <string name="enrollment_success">录入成功</string>
+    <string name="finger_previously_enrolled">该指纹之前已经录过了！</string>
+    <string name="mather_add_image_failed">Matcher add image failed</string>
+    <string name="verification_success">验证成功</string>
+    <string name="practice_mode">Practice Mode</string>
+    <string name="watch_video">Please watch the video</string>
+    <string name="all_fingers_enrolled">All fingers were enrolled.\nPlease remove fingerprints to enroll new.</string>
+    <string name="good_swipe">Good swipe</string>
+    <string name="bad_swipe_too_fast">Bad swipe: Too fast</string>
+    <string name="bad_swipe_too_slow">Bad swipe: Too slow</string>
+    <string name="bad_swipe_default">Bad swipe: Follow finger animation</string>
+    <string name="loading">加载中...</string>
+    <string name="lockpassword_set_alternate_unlock_header">设置其他解锁方式</string>
+    <string name="percentage">%d %%</string>
+    <!-- Label for ChoosePassword/PIN OK button -->
+    <string name="lockpassword_ok_label">确定</string>
+    <string name="finger_list">指纹列表</string>
+
+    <!-- Label for LockPatternTutorial Cancel button -->
+    <string name="lockpattern_tutorial_cancel_label">取消</string>
+
+    <!-- Label for LockPatternTutorial Continue button -->
+    <string name="lockpattern_tutorial_continue_label">下一步</string>
+    <!-- SetupWizard strings used by DateTimeSettingsSetupWizard.  The button label for going to the next screen. -->
+    <string name="next_label">下一步</string>
+    <string name="dlg_ok">OK</string>
+    <!-- Strings for Dialog yes button -->
+    <string name="yes">"Yes"</string>
+
+    <!-- Strings for Dialog no button -->
+    <string name="no">"No"</string>
+    <!-- Lock Pattern settings -->
+    <!-- Header on first screen of choose password/PIN flow [CHAR LIMIT=30] -->
+    <string name="lockpassword_choose_your_password_header">Choose your password</string>
+    <!-- Header on first screen of choose pattern flow [CHAR LIMIT=30] -->
+    <string name="lockpassword_choose_your_pattern_header">Choose your pattern</string>
+    <!-- Header on first screen of choose password/PIN flow [CHAR LIMIT=30] -->
+    <string name="lockpassword_choose_your_pin_header">Choose your PIN</string>
+    <!-- Header on password confirm screen [CHAR LIMIT=30] -->
+    <string name="lockpassword_confirm_your_password_header">Confirm your password</string>
+    <!-- Header on pattern confirm screen [CHAR LIMIT=30] -->
+    <!-- Header on password confirm screen [CHAR LIMIT=30] -->
+    <string name="lockpassword_confirm_your_pin_header">Confirm your PIN</string>
+    <!-- Header on password confirm screen if second password doesn't match the first. [CHAR LIMIT=30] -->
+    <string name="lockpassword_confirm_passwords_dont_match">Passwords don\'t match</string>
+    <!-- Header on pin confirm screen if second pin doesn't match the first. [CHAR LIMIT=30] -->
+    <string name="lockpassword_confirm_pins_dont_match">PINs don\'t match</string>
+    <string name="lockpattern_recording_inprogress">绘制完成后松开手指.</string>
+    <string name="cancel">取消</string>
+    <string name="lockpattern_retry_button_text">重试</string>
+    <!-- Security & location settings screen, change unlock pattern screen button, on bottom of screen. Once they draw a new pattern and confirm it by drawing it again, they press this button to exit -->
+    <string name="lockpattern_continue_button_text">继续</string>
+    <string name="lockpattern_confirm_button_text">确定</string>
+    <string name="lockpattern_recording_intro_header">绘制解锁图案</string>
+    <string name="lockpattern_pattern_entered_header">图案已记录.</string>
+    <!-- Security & location settings screen, change unlock pattern screen instruction on top of screen to confirm pattern -->
+    <string name="lockpattern_need_to_confirm">请再绘制一遍图案</string>
+    <string name="lockpattern_pattern_confirmed_header">Your new unlock pattern:</string>
+    <!-- Security & location settings screen, the help instructions (an animation) caption -->
+    <string name="lockpattern_settings_help_how_to_record">How to draw an unlock pattern</string>
+    <!-- Security & location settings screen, change unlock pattern screen instruction on top of screen after too many incorrect attempts -->
+    <!-- Security & location settings screen, change unlock pattern screen countdown hint on bottom of screen after too many incorrect attempts -->
+
+    <string name="lockpattern_recording_incorrect_too_short">至少连接 %d 个点，请重试</string>
+    <string name="lockpassword_continue_label">继续</string>
+    <string name="lockpassword_illegal_character">Password contains an illegal character.</string>
+    <string name="lockpassword_password_too_short">Password must be at least %d characters</string>
+    <string name="lockpassword_pin_too_short">PIN must be at least %d digits</string>
+    <string name="lockpassword_password_too_long">Password must be fewer than %d characters.</string>
+    <string name="lockpassword_pin_too_long">PIN must be fewer than %d digits.</string>
+    <string name="lockpassword_password_requires_alpha">Password must contain at least one letter.</string>
+    <string name="lockpassword_password_requires_digit">Password must contain at least one digit.</string>
+    <string name="lockpassword_password_recently_used">Device administrator doesn\'t allow using a recent password.</string>
+    <string name="lockpassword_pin_recently_used">Device administrator doesn\'t allow using a recent PIN.</string>
+    <string name="lockpassword_press_continue">Touch Continue when done</string>
+    <string name="lockpattern_change_lock_fingerprint_label">Change unlock fingerprint</string>
+    <string name="lockpassword_pin_contains_non_digits">PIN must contain only digits 0-9.</string>
+
+    <plurals name="lockpassword_password_requires_letters">
+        <item quantity="one">Password must contain at least 1 letter.</item>
+        <item quantity="other">Password must contain at least %d letters.</item>
+    </plurals>
+    <plurals name="lockpassword_password_requires_numeric">
+        <item quantity="one">Password must contain at least 1 numerical digit.</item>
+        <item quantity="other">Password must contain at least %d numerical digits.</item>
+    </plurals>
+    <plurals name="lockpassword_password_requires_lowercase">
+        <item quantity="one">Password must contain at least 1 lowercase letter.</item>
+        <item quantity="other">Password must contain at least %d lowercase letters.</item>
+    </plurals>
+    <plurals name="lockpassword_password_requires_uppercase">
+        <item quantity="one">Password must contain at least 1 uppercase letter.</item>
+        <item quantity="other">Password must contain at least %d uppercase letters.</item>
+    </plurals>
+    <plurals name="lockpassword_password_requires_symbols">
+        <item quantity="one">Password must contain at least 1 special symbol.</item>
+        <item quantity="other">Password must contain at least %d special symbols.</item>
+    </plurals>
+    <plurals name="lockpassword_password_requires_nonletter">
+        <item quantity="one">Password must contain at least 1 non-letter character.</item>
+        <item quantity="other">Password must contain at least %d non-letter characters.</item>
+    </plurals>
+    
+    <string name="hello_world">Hello world!</string>
+    
+    <!-- 描述数字键盘按下 -->
+    <string name="numeric_keyboard_down">numeric keyboard down</string>
+    <!-- 描述数字键盘弹起 -->
+    <string name="numeric_keyboard_up">numeric keyboard up</string>
+    <!-- 描述数字键盘取消 -->
+    <string name="numeric_keyboard_cancel">numeric keyboard cancel</string>
+    
+    
+    <string name="please_encroll">请先录入指纹</string>
+    <string name="please_set_pwd">请先设置密码</string>
+    <string name="please_input_pwd">请输入密码</string>
+    <string name="please_input_pwd_again">确认密码</string>
+    <string name="not_equals">两次输入的密码不一致,请重新输入！</string>
+    <string name="password_not_equals">密码错误,请重新输入！</string>
+    <string name="setting_pwd_success">密码设置成功！</string>
+    <string name="login_success">登录成功！</string>
+    <string name="input_again">重输</string>
+    <string name="test1">数字键盘1</string>
+    <string name="test2">数字键盘2</string>
+    <string name="test3">数字键盘3</string>
+    <string name="dialog_title">提示</string>
+    <string name="dialog_msg">请选择类型：</string>
+    <string name="dialog_ok">设置密码</string>
+    <string name="dialog_cancel">登录</string>
+    <string name="question_or_answer_null">问题或者答案不能为空</string>
+    
+    
+    <!-- 数字按键 -->
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="neigh">9</string>
+    <string name="newchip">NEWSCHIP Semiconductor Co.LTD.</string>
+    <string name="forget_mima"><u>忘记密码？</u></string>
+    <string name="forget_mima_and_reset">请到设置中清除应用数据</string>
+    <string name="please_place_or_swipe">please_place_or_swipe</string>
+    <string name="place_or_swipe_to_enroll">place_or_swipe_to_enroll</string>
+    <string name="name_empty">名字不能为空</string>
+    <string name="name_title">请为该指纹命名</string>
+    <string name="please_input_question">请输入问题</string>
+    <string name="please_input_password">请输入答案</string>
+    <string name="answer_error">答案错误，请重新输入</string>
+    <string name="title_set_question">设置密保问题</string>
+    <string name="title_confirm_question">确认密保问题</string>
+    <string name="reset_password_ok">密码重置成功</string>
+    <string name="register">注册您的软件</string>
+    <string name="finger_name_defualt">指纹</string>
+    <string name="entry_finger_name">输入指纹名称</string>
+    <string name="about">关于</string>
+    <string name="enroll_more_than_five">录入的指纹不能超过5个</string>
+    <string name="contact_us">联系我们</string>
+    <string name="score">给个好评</string>
+    <string name="enroll_success">录入成功</string>
+    <string name="app_runing">程序正在运行</string>
+    <string name="enroll_finger_remove">指纹已删除</string>
+    <string name="delete_finger_print">确定要删除指纹？</string>
+    <string name="identify_success">验证成功</string>
+    <string name="finger_count_full">指纹已录满</string>
+    <string name="no_finger_print">未找到指纹</string>
+    <string name="fast_dail">快速拨号</string>
+    <string-array name="drawer_content">
+        <item>设置</item>
+        <item>帮助</item>
+        <item>关于</item>
+    </string-array>
+
+</resources>
