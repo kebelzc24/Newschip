@@ -253,7 +253,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         RecyleViewItem item2 = new RecyleViewItem(R.mipmap.app_lock, getStringRes(R.string.app_lock), getStringRes(R.string.app_may_be_locked));
         RecyleViewItem item3 = new RecyleViewItem(R.mipmap.app_switch, getStringRes(R.string.switch_app), getStringRes(R.string.switch_app_content));
         RecyleViewItem item4 = new RecyleViewItem(R.mipmap.file_hide, getStringRes(R.string.hidden_file), getStringRes(R.string.hidden_file_content));
-        RecyleViewItem item5 = new RecyleViewItem(R.mipmap.finger, getStringRes(R.string.fast_dial), getStringRes(R.string.fast_dial_content));
+        RecyleViewItem item5 = new RecyleViewItem(R.mipmap.contant_peopel, getStringRes(R.string.fast_dial), getStringRes(R.string.fast_dial_content));
         mRecyleViewItems.add(item1);
         mRecyleViewItems.add(item2);
         mRecyleViewItems.add(item3);
