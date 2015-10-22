@@ -215,10 +215,19 @@
     <string name="rename">重命名</string>
     <string name="delete">删除</string>
     <string name="finger">指纹 %d</string>
+    <string name="finger_name_defualt">指纹</string>
     <string name="finger_usage">该指纹可用于解锁</string>
     <string name="finger_relate">应用已关联 %s</string>
     <string name="finger_usage_with_app">该指纹可用于打开%s应用和解锁</string>
-
+    <string name="fast_dail">快速拨号</string>
+    <string name="no_finger_print">未找到指纹</string>
+    <string name="delete_finger_print">确定要删除指纹？</string>
+    <string name="enroll_success">录入成功</string>
+    <string name="enroll_finger_remove">指纹已删除</string>
+    <string name="identify_success">验证成功</string>
+    <string name="finger_count_full">指纹已录满</string>
+    <string name="entry_finger_name">输入指纹名称</string>
+    <string name="enroll_more_than_five">录入的指纹不能超过5个</string>
     <!-- 抽屉列表 -->
     <string-array name="menu_array">
         <item>照片</item>

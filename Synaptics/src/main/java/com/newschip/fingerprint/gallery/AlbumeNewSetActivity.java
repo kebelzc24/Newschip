@@ -1,21 +1,5 @@
 package com.newschip.fingerprint.gallery;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.newschip.fingerprint.activity.PhotoListActivity;
-import com.newschip.fingerprint.activity.VideoListActivity;
-import com.newschip.fingerprint.gallery.AlbumeNewSetActivity;
-import com.newschip.fingerprint.R;
-import com.newschip.fingerprint.materialmenu.MaterialMenuDrawable;
-import com.newschip.fingerprint.materialmenu.MaterialMenuIcon;
-import com.newschip.fingerprint.materialmenu.MaterialMenuDrawable.Stroke;
-import com.newschip.fingerprint.utils.SystemBarTintManager;
-import com.newschip.fingerprint.video.VideoHideListActivity;
-import com.newschip.fingerprint.video.VideoPageActivity;
-
 import android.app.ActivityGroup;
 import android.content.Context;
 import android.content.Intent;
@@ -31,13 +15,24 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import com.newschip.fingerprint.R;
+import com.newschip.fingerprint.materialmenu.MaterialMenuDrawable;
+import com.newschip.fingerprint.materialmenu.MaterialMenuDrawable.Stroke;
+import com.newschip.fingerprint.materialmenu.MaterialMenuIcon;
+import com.newschip.fingerprint.utils.SystemBarTintManager;
+import com.newschip.fingerprint.video.VideoHideListActivity;
+import com.newschip.fingerprint.video.VideoPageActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @项目名: NFingers_Sync
@@ -79,6 +74,7 @@ public class AlbumeNewSetActivity extends ActivityGroup {
     private SimpleAdapter mAdapter;
     private List<HashMap<String, Object>> mHashMaps;
     private HashMap<String, Object> map;
+    private int flags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +92,7 @@ public class AlbumeNewSetActivity extends ActivityGroup {
 
         mAdapter = new SimpleAdapter(this, getData(), R.layout.menu_array,
                 new String[] { "image", "text" }, new int[] { R.id.image,
-                        R.id.text });
+                R.id.text });
         mMenuListView.setAdapter(mAdapter);
 
         mMenuListView.setOnItemClickListener(new DrawerItemClickListener());
@@ -147,13 +143,13 @@ public class AlbumeNewSetActivity extends ActivityGroup {
 
     /**
      * ListView上的Item点击事件
-     * 
+     *
      */
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id) {
+                                long id) {
             selectItem(position);
         }
     }
@@ -204,30 +200,30 @@ public class AlbumeNewSetActivity extends ActivityGroup {
 
     /**
      * 切换主视图区域的Fragment
-     * 
+     *
      * @param position
      */
     private void selectItem(int position) {
         switch (position) {
-        case 0:
-            localPosition = 0;
-            bodyView.removeAllViews();
-            View v = getLocalActivityManager().startActivity(
-                    "photo",
-                    new Intent(AlbumeNewSetActivity.this,
-                            AlbumeSetActivity.class)).getDecorView();
-            bodyView.addView(v);
-            break;
-        case 1:
-            localPosition = 1;
-            bodyView.removeAllViews();
-            bodyView.addView(getLocalActivityManager().startActivity(
-                    "video",
-                    new Intent(AlbumeNewSetActivity.this,
-                            VideoPageActivity.class)).getDecorView());
-            break;
-        default:
-            break;
+            case 0:
+                localPosition = 0;
+                bodyView.removeAllViews();
+                View v = getLocalActivityManager().startActivity(
+                        "photo",
+                        new Intent(AlbumeNewSetActivity.this,
+                                AlbumeSetActivity.class)).getDecorView();
+                bodyView.addView(v);
+                break;
+            case 1:
+                localPosition = 1;
+                bodyView.removeAllViews();
+                bodyView.addView(getLocalActivityManager().startActivity(
+                        "video",
+                        new Intent(AlbumeNewSetActivity.this,
+                                VideoPageActivity.class)).getDecorView());
+                break;
+            default:
+                break;
         }
 
         // 更新选择后的item和title，然后关闭菜单
@@ -243,33 +239,33 @@ public class AlbumeNewSetActivity extends ActivityGroup {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case android.R.id.home:
-            if (showView == mMenuListView) {
-                if (!isDirection_left) { // 左边栏菜单关闭时，打开
-                    mDrawerLayout.openDrawer(mMenuListView);
-                } else {// 左边栏菜单打开时，关闭
-                    mDrawerLayout.closeDrawer(mMenuListView);
+            case android.R.id.home:
+                if (showView == mMenuListView) {
+                    if (!isDirection_left) { // 左边栏菜单关闭时，打开
+                        mDrawerLayout.openDrawer(mMenuListView);
+                    } else {// 左边栏菜单打开时，关闭
+                        mDrawerLayout.closeDrawer(mMenuListView);
+                    }
                 }
-            }
-            break;
-        case R.id.action_lock:
-            if (localPosition == 0) {
-                Toast.makeText(mContext, "正在加载隐藏相册", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AlbumeNewSetActivity.this,
-                        FileHideListActivity.class);
-                intent.putExtra("show_hide", true);
-                startActivityForResult(intent, 0);
-            } else {
-                Toast.makeText(mContext, "正在加载隐藏视频", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AlbumeNewSetActivity.this,
-                        VideoHideListActivity.class);
-                intent.putExtra("show_hide", true);
-                startActivityForResult(intent, 0);
+                break;
+            case R.id.action_lock:
+                if (localPosition == 0) {
+                    Toast.makeText(mContext, "正在加载隐藏相册", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AlbumeNewSetActivity.this,
+                            FileHideListActivity.class);
+                    intent.putExtra("show_hide", true);
+                    startActivityForResult(intent, 0);
+                } else {
+                    Toast.makeText(mContext, "正在加载隐藏视频", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AlbumeNewSetActivity.this,
+                            VideoHideListActivity.class);
+                    intent.putExtra("show_hide", true);
+                    startActivityForResult(intent, 0);
 
-            }
-            break;
-        default:
-            break;
+                }
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -320,7 +316,7 @@ public class AlbumeNewSetActivity extends ActivityGroup {
             Window win = getWindow();
             WindowManager.LayoutParams winParams = win.getAttributes();
             final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-            winParams.flags |= bits;
+            flags |= bits;
             win.setAttributes(winParams);
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);

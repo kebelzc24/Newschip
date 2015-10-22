@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -27,6 +28,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -109,6 +111,7 @@ public class ChooseLockFingerprint extends BaseActivity implements
     private boolean mGetFpImagesStarted = false;
     private static int mFpIndex = 1;
     private ListView mListView;
+    private TextView mFingerPrompt;
     private SimpleAdapter mListAdapter;
 
     private static final int MSG_API_ERROR = 501;
@@ -119,11 +122,11 @@ public class ChooseLockFingerprint extends BaseActivity implements
 
     private Stage mUiStage = Stage.FingerprintMenu;
     private int mPreOnResumeQuality = (int) DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED; // lock
-                                                                                              // used
-                                                                                              // preOnResume
+    // used
+    // preOnResume
     private int mOnResumeQuality = (int) DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED; // lock
-                                                                                           // used
-                                                                                           // onResume
+    // used
+    // onResume
 
     private String FINGER_PLACE_OR_SWIPE_LABEL = "Swipe to enroll";
     private String FINGER_LIFT_LABEL = "Lift your finger";
@@ -137,11 +140,11 @@ public class ChooseLockFingerprint extends BaseActivity implements
     private LinearLayout mEnrolFingerPrintLayout;
     private LinearLayout mRemoveFingerPrintLayout;
     private LinearLayout mHelpLayout;
+    private Toolbar mToolbar;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-
         // used to determine if the screen is on OR keyguard is up
         mPowerMgr = (PowerManager) mContext
                 .getSystemService(Context.POWER_SERVICE);
@@ -155,7 +158,20 @@ public class ChooseLockFingerprint extends BaseActivity implements
 
         initAnimations();
 
+
         initViews(mUiStage);
+    }
+
+    private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        super.initToolbar(mToolbar);
+        mToolbar.setTitle(R.string.manager_finger_print);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void startEnroll() {
@@ -268,68 +284,68 @@ public class ChooseLockFingerprint extends BaseActivity implements
 
     private void initViews(Stage stage) {
         switch (stage) {
-        case FingerprintMenu:
-            setContentView(R.layout.choose_lock_fingerprint_menu);
-            setCommonTitleBarTitle(R.string.manager_finger_print);
+            case FingerprintMenu:
+                setContentView(R.layout.choose_lock_fingerprint_menu);
+                initToolbar();
+                //setCommonTitleBarTitle(R.string.manager_finger_print);
 
-            mEnrolFingerPrintLayout = (LinearLayout) findViewById(R.id.ll_enroll_fingerprint);
-            mRemoveFingerPrintLayout = (LinearLayout) findViewById(R.id.ll_remove_fingerprint);
-            mEnrolFingerPrintLayout.setOnClickListener(this);
-            // mRemoveFingerPrintLayout.setOnClickListener(this);
-            mHelpLayout = (LinearLayout) findViewById(R.id.ll_help);
-            mHelpLayout.setOnClickListener(this);
-            mListView = (ListView) findViewById(R.id.listview);
+                mEnrolFingerPrintLayout = (LinearLayout) findViewById(R.id.ll_enroll_fingerprint);
+                mRemoveFingerPrintLayout = (LinearLayout) findViewById(R.id.ll_remove_fingerprint);
+                mFingerPrompt = (TextView) findViewById(R.id.finger_prompt);
+                mEnrolFingerPrintLayout.setOnClickListener(this);
+                // mRemoveFingerPrintLayout.setOnClickListener(this);
+                mHelpLayout = (LinearLayout) findViewById(R.id.ll_help);
+                mHelpLayout.setOnClickListener(this);
+                mListView = (ListView) findViewById(R.id.listview);
+                break;
 
-            break;
+            case EnrollFingerprint:
+                // Read configuration file
+                loadValidityConfig();
 
-        case EnrollFingerprint:
-            // Read configuration file
-            loadValidityConfig();
+                setContentView(R.layout.choose_lock_fingerprint_enroll);
 
-            setContentView(R.layout.choose_lock_fingerprint_enroll);
+                mHeaderText = (TextView) findViewById(R.id.header_text);
+                mHeaderText.startAnimation(mTextBlinkAnimation);
 
-            mHeaderText = (TextView) findViewById(R.id.header_text);
-            mHeaderText.startAnimation(mTextBlinkAnimation);
+                mEnrollPercentage = (TextView) findViewById(R.id.enroll_percentage);
+                mSwipeStatus = (ImageView) findViewById(R.id.swipe_status);
+                mEnrollProgress = (ProgressBar) findViewById(R.id.enroll_progress);
 
-            mEnrollPercentage = (TextView) findViewById(R.id.enroll_percentage);
-            mSwipeStatus = (ImageView) findViewById(R.id.swipe_status);
-            mEnrollProgress = (ProgressBar) findViewById(R.id.enroll_progress);
+                mFingerprintImg = (ImageView) findViewById(R.id.fingerprint);
+                mFingerprintImg.setVisibility(View.VISIBLE);
+                // mFingerprintImg.startAnimation(mTextBlinkAnimation);
 
-            mFingerprintImg = (ImageView) findViewById(R.id.fingerprint);
-            mFingerprintImg.setVisibility(View.VISIBLE);
-            // mFingerprintImg.startAnimation(mTextBlinkAnimation);
+                mNextButton = (Button) findViewById(R.id.next_button);
 
-            mNextButton = (Button) findViewById(R.id.next_button);
+                initSensorView();
+                break;
 
-            initSensorView();
+            case PracticeMode:
 
-            break;
+                loadValidityConfig();
 
-        case PracticeMode:
+                setContentView(R.layout.finger_swipe_practice);
 
-            loadValidityConfig();
+                mHeaderText = (TextView) findViewById(R.id.header_text);
 
-            setContentView(R.layout.finger_swipe_practice);
+                mNextButton = (Button) findViewById(R.id.next_button);
 
-            mHeaderText = (TextView) findViewById(R.id.header_text);
+                mSwipeStatus = (ImageView) findViewById(R.id.swipe_status);
+                mStatusText = (TextView) findViewById(R.id.status_text);
 
-            mNextButton = (Button) findViewById(R.id.next_button);
+                mFingerprintImg = (ImageView) findViewById(R.id.fingerprint);
+                File fpImgfile = new File(Environment.getDataDirectory(),
+                        "fingerprint.png");
+                if (fpImgfile.exists()) {
+                    Uri uri = Uri.fromFile(fpImgfile);
+                    mFingerprintImg.setImageURI(uri);
+                }
+                mFingerprintImg.setVisibility(View.VISIBLE);
 
-            mSwipeStatus = (ImageView) findViewById(R.id.swipe_status);
-            mStatusText = (TextView) findViewById(R.id.status_text);
+                initSensorView();
 
-            mFingerprintImg = (ImageView) findViewById(R.id.fingerprint);
-            File fpImgfile = new File(Environment.getDataDirectory(),
-                    "fingerprint.png");
-            if (fpImgfile.exists()) {
-                Uri uri = Uri.fromFile(fpImgfile);
-                mFingerprintImg.setImageURI(uri);
-            }
-            mFingerprintImg.setVisibility(View.VISIBLE);
-
-            initSensorView();
-
-            break;
+                break;
         }
     }
 
@@ -341,69 +357,69 @@ public class ChooseLockFingerprint extends BaseActivity implements
     private void updateUi() {
 
         switch (mUiStage) {
-        case FingerprintMenu:
+            case FingerprintMenu:
 
-            setTitle(getText(R.string.fingerprint_options));
+                setTitle(getText(R.string.fingerprint_options));
 
-            // Show remove options if fingers already enrolled
-            mMenuInitTask = new MenuInitTask();
-            mMenuInitTask.execute(this);
-            break;
+                // Show remove options if fingers already enrolled
+                mMenuInitTask = new MenuInitTask();
+                mMenuInitTask.execute(this);
+                break;
 
-        case EnrollFingerprint:
-            setTitle(getText(R.string.enroll_fingerprint));
+            case EnrollFingerprint:
+                setTitle(getText(R.string.enroll_fingerprint));
 
-            showAnimations(false);
-            setStatusText(getString(R.string.please_wait));// Banner text
-            mNextButton.setEnabled(false); // Retry button
-            mNextButton.setText(R.string.retry); // Enable upon failed attempt
+                showAnimations(false);
+                setStatusText(getString(R.string.please_wait));// Banner text
+                mNextButton.setEnabled(false); // Retry button
+                mNextButton.setText(R.string.retry); // Enable upon failed attempt
 
-            // reset flashing bar
-            if (mSwipeStatus != null) {
-                mSwipeStatus.setImageResource(R.mipmap.led_swipe_none);
-            }
+                // reset flashing bar
+                if (mSwipeStatus != null) {
+                    mSwipeStatus.setImageResource(R.mipmap.led_swipe_none);
+                }
 
-            // reset progress bar
-            if (mEnrollProgress != null) {
-                Rect bounds = mEnrollProgress.getProgressDrawable().getBounds();
-                mEnrollProgress.setProgressDrawable(getResources().getDrawable(
-                        R.drawable.enroll_progress_bar));
-                mEnrollProgress.getProgressDrawable().setBounds(bounds);
-                mEnrollProgress.setProgress(0);
-            }
+                // reset progress bar
+                if (mEnrollProgress != null) {
+                    Rect bounds = mEnrollProgress.getProgressDrawable().getBounds();
+                    mEnrollProgress.setProgressDrawable(getResources().getDrawable(
+                            R.drawable.enroll_progress_bar));
+                    mEnrollProgress.getProgressDrawable().setBounds(bounds);
+                    mEnrollProgress.setProgress(0);
+                }
 
-            // reset %ge text
-            if (mEnrollPercentage != null) {
-                mEnrollPercentage.setText("0%");
-            }
+                // reset %ge text
+                if (mEnrollPercentage != null) {
+                    mEnrollPercentage.setText("0%");
+                }
 
-            // Disable Home key
-            setWindowType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+                // Disable Home key
+                setWindowType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 
-            // start enrollment
-            startEnroll();
+                // start enrollment
+                startEnroll();
 
-            break;
+                break;
 
-        case PracticeMode:
+            case PracticeMode:
 
-            setTitle(R.string.practice_mode);
+                setTitle(R.string.practice_mode);
 
-            mGetFpImagesStarted = false;
+                mGetFpImagesStarted = false;
 
-            showAnimations(false);
+                showAnimations(false);
 
-            if (mVideoView != null && mVideoView.isShown()) {
-                setStatusText(getString(R.string.watch_video));
-            } else {
-                setStatusText(getString(R.string.please_wait));
-                getFingerprintImage();
-            }
+                if (mVideoView != null && mVideoView.isShown()) {
+                    setStatusText(getString(R.string.watch_video));
+                } else {
+                    setStatusText(getString(R.string.please_wait));
+                    getFingerprintImage();
+                }
 
-            // Disable Home key
-            setWindowType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+                // Disable Home key
+                setWindowType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 
-            break;
+                break;
         }
     }
 
@@ -532,81 +548,82 @@ public class ChooseLockFingerprint extends BaseActivity implements
         int maxLength;
 
         switch (v.getId()) {
-        case R.id.ll_enroll_fingerprint:
-            if (mFpIndex > 10) { // All ten fingers enrolled
-                popupMessage(getString(R.string.all_fingers_enrolled), null);
-                return;
-            }
-
-            if (mConfigData != null && mConfigData.practiceMode) { // Practice
-                                                                   // Mode
-                initViews(Stage.PracticeMode);
-                updateStage(Stage.PracticeMode);
-            } else { // Enroll Fingerprint
-                initViews(Stage.EnrollFingerprint);
-                updateStage(Stage.EnrollFingerprint);
-            }
-            break;
-        case R.id.ll_help:
-            startActivity(new Intent(this, SplashActivity.class));
-            break;
-        case R.id.ll_remove_fingerprint:
-            if (mFpIndex > 1) { // only allow IF fingerprints were enrolled
-                // do a popup are you sure yes/no, handle answers onClick
-                // popupRemoveFingerprints();
-                showAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE);
-            }
-            break;
-        case R.id.alternate_button:
-            break;
-        case R.id.cancel_button:
-            cancel();
-            // back to menu screen
-            initViews(Stage.FingerprintMenu);
-            updateStage(Stage.FingerprintMenu);
-            break;
-        case R.id.next_button:
-            switch (mUiStage) {
-            case FingerprintMenu:
-                // set fingerprint as security and exit
-                finish();
-                break;
-            case EnrollFingerprint:
-                // reset header text and start enroll
-                updateUi();
-                break;
-            case PracticeMode:
-                // cancel();
-                try {
-                    mLock.acquire();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            case R.id.ll_enroll_fingerprint:
+                if (mFpIndex > 5) { // All ten fingers enrolled
+                    //popupMessage(getString(R.string.all_fingers_enrolled), null);
+                    popupMessage(getString(R.string.enroll_more_than_five), null);
+                    return;
                 }
-                if (mFingerprint != null) {
-                    mFingerprint.cancel();
-                    log("Cancel complete!");
-                } else {
-                    Log.e(TAG, "cancel()::fingerprint object does not exists!");
-                }
-                mLock.release();
 
-                initViews(Stage.EnrollFingerprint);
-                updateStage(Stage.EnrollFingerprint);
+                if (mConfigData != null && mConfigData.practiceMode) { // Practice
+                    // Mode
+                    initViews(Stage.PracticeMode);
+                    updateStage(Stage.PracticeMode);
+                } else { // Enroll Fingerprint
+                    initViews(Stage.EnrollFingerprint);
+                    updateStage(Stage.EnrollFingerprint);
+                }
                 break;
-            }
-            break;
+            case R.id.ll_help:
+                startActivity(new Intent(this, SplashActivity.class));
+                break;
+            case R.id.ll_remove_fingerprint:
+                if (mFpIndex > 1) { // only allow IF fingerprints were enrolled
+                    // do a popup are you sure yes/no, handle answers onClick
+                    // popupRemoveFingerprints();
+                    showAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE);
+                }
+                break;
+            case R.id.alternate_button:
+                break;
+            case R.id.cancel_button:
+                cancel();
+                // back to menu screen
+                initViews(Stage.FingerprintMenu);
+                updateStage(Stage.FingerprintMenu);
+                break;
+            case R.id.next_button:
+                switch (mUiStage) {
+                    case FingerprintMenu:
+                        // set fingerprint as security and exit
+                        finish();
+                        break;
+                    case EnrollFingerprint:
+                        // reset header text and start enroll
+                        updateUi();
+                        break;
+                    case PracticeMode:
+                        // cancel();
+                        try {
+                            mLock.acquire();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (mFingerprint != null) {
+                            mFingerprint.cancel();
+                            log("Cancel complete!");
+                        } else {
+                            Log.e(TAG, "cancel()::fingerprint object does not exists!");
+                        }
+                        mLock.release();
+
+                        initViews(Stage.EnrollFingerprint);
+                        updateStage(Stage.EnrollFingerprint);
+                        break;
+                }
+                break;
 
         /* popupRemoveFingerprints() */
-        case R.id.yes_button:
-            mPopupWindow.dismiss();
-            removeFingerprints();
-            initViews(Stage.FingerprintMenu);
-            updateStage(Stage.FingerprintMenu);
-            break;
-        case R.id.no_button:
-            // don't do anything
-            mPopupWindow.dismiss();
-            break;
+            case R.id.yes_button:
+                mPopupWindow.dismiss();
+                removeFingerprints();
+                initViews(Stage.FingerprintMenu);
+                updateStage(Stage.FingerprintMenu);
+                break;
+            case R.id.no_button:
+                // don't do anything
+                mPopupWindow.dismiss();
+                break;
         }
     }
 
@@ -705,7 +722,7 @@ public class ChooseLockFingerprint extends BaseActivity implements
                 .setPositiveButton(R.string.dlg_ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
-                                    int which) {
+                                                int which) {
                                 mAlertDialog.dismiss();
                             }
                         }).create();
@@ -715,7 +732,9 @@ public class ChooseLockFingerprint extends BaseActivity implements
         mAlertDialog.show();
     }
 
-    /** Callback implementation */
+    /**
+     * Callback implementation
+     */
     @Override
     public void onEvent(FingerprintEvent eventdata) {
 
@@ -742,80 +761,39 @@ public class ChooseLockFingerprint extends BaseActivity implements
             Log.d(TAG, "msg.what = " + msg.what);
             switch (msg.what) {
 
-            // during initialization
-            case MSG_API_ERROR:
-            case FingerprintApiWrapper.VCS_RESULT_FAILED:
-                statusMsg = getString(R.string.error);
-                toastMsg = getString(R.string.please_try_again);
-                break;
+                // during initialization
+                case MSG_API_ERROR:
+                case FingerprintApiWrapper.VCS_RESULT_FAILED:
+                    statusMsg = getString(R.string.error);
+                    toastMsg = getString(R.string.please_try_again);
+                    break;
 
-            case MSG_WAIT:
-            case FingerprintApiWrapper.VCS_EVT_SENSOR_READY_FOR_USE:
-                statusMsg = getString(R.string.please_wait);
-                break;
+                case MSG_WAIT:
+                case FingerprintApiWrapper.VCS_EVT_SENSOR_READY_FOR_USE:
+                    statusMsg = getString(R.string.please_wait);
+                    break;
 
-            case FingerprintApiWrapper.VCS_EVT_SENSOR_FINGERPRINT_CAPTURE_START:
-            case FingerprintApiWrapper.VCS_EVT_ENROLL_NEXT_CAPTURE_START:
-                if (mUiStage == Stage.PracticeMode) {
-                    statusMsg = FINGER_GENERIC_ACTION_LABEL;
-                } else {
-                    statusMsg = FINGER_PLACE_OR_SWIPE_LABEL;
-                }
-                break;
-
-            case FingerprintApiWrapper.VCS_EVT_FINGER_SETTLED:
-                statusMsg = FINGER_LIFT_LABEL;
-                if (mHapticFeedbackEnable) {
-                    View rootView = getWindow().getDecorView().findViewById(
-                            android.R.id.content);
-                    if (rootView != null)
-                        rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-                }
-                break;
-
-            case FingerprintApiWrapper.VCS_EVT_ENROLL_CAPTURE_STATUS:
-                statusMsg = getString(R.string.fingerprint_captured);
-
-                event_data = (FingerprintEvent) msg.obj;
-                if (event_data == null) {
-                    Log.e(TAG, "Invalid event data");
-                    return;
-                }
-
-                EnrollCaptureStatus enrollStatus = mFingerprint
-                        .getEnrollStatus(event_data.eventData);
-                if (enrollStatus == null) {
-                    Log.e(TAG, "Invalid enroll status object");
-                    return;
-                }
-
-                // flashing LED
-                if (mSwipeStatus != null) {
-                    int led = (enrollStatus.templateResult == 0) ? R.mipmap.led_swipe_good
-                            : R.mipmap.led_swipe_bad;
-                    mSwipeStatus.setImageResource(led);
-                    mSwipeStatus.startAnimation(mFadeInAnimation);
-                }
-
-                // enrollment progress
-                Log.i(TAG, "Enroll progress:" + enrollStatus.progress);
-                if (enrollStatus.templateResult == 0) { // good swipe
-                    if (mEnrollProgress != null) {
-                        mEnrollProgress.setProgress(enrollStatus.progress);
+                case FingerprintApiWrapper.VCS_EVT_SENSOR_FINGERPRINT_CAPTURE_START:
+                case FingerprintApiWrapper.VCS_EVT_ENROLL_NEXT_CAPTURE_START:
+                    if (mUiStage == Stage.PracticeMode) {
+                        statusMsg = FINGER_GENERIC_ACTION_LABEL;
+                    } else {
+                        statusMsg = FINGER_PLACE_OR_SWIPE_LABEL;
                     }
-                    if (mEnrollPercentage != null) {
-                        mEnrollPercentage.setText(enrollStatus.progress + "%");
+                    break;
+
+                case FingerprintApiWrapper.VCS_EVT_FINGER_SETTLED:
+                    statusMsg = FINGER_LIFT_LABEL;
+                    if (mHapticFeedbackEnable) {
+                        View rootView = getWindow().getDecorView().findViewById(
+                                android.R.id.content);
+                        if (rootView != null)
+                            rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                     }
-                } else { // bad swipe
-                    showBadSwipe(mEnrollProgress.getProgress());
-                }
+                    break;
 
-                break;
-
-            case FingerprintApiWrapper.VCS_EVT_EIV_FINGERPRINT_CAPTURED:
-                if (mUiStage == Stage.PracticeMode) {
+                case FingerprintApiWrapper.VCS_EVT_ENROLL_CAPTURE_STATUS:
                     statusMsg = getString(R.string.fingerprint_captured);
-                    log("Fingerprint captured");
 
                     event_data = (FingerprintEvent) msg.obj;
                     if (event_data == null) {
@@ -823,128 +801,169 @@ public class ChooseLockFingerprint extends BaseActivity implements
                         return;
                     }
 
-                    FingerprintBitmap vcsFp = mFingerprint
-                            .getFingerprint(event_data.eventData);
-                    if (vcsFp == null) {
-                        Log.e(TAG, "Invalid fingerprint object");
+                    EnrollCaptureStatus enrollStatus = mFingerprint
+                            .getEnrollStatus(event_data.eventData);
+                    if (enrollStatus == null) {
+                        Log.e(TAG, "Invalid enroll status object");
                         return;
                     }
 
-                    if (!(vcsFp.fingerprint instanceof Bitmap)) {
-                        Log.e(TAG, "Invalid fingerprint bitmap");
-                        return;
+                    // flashing LED
+                    if (mSwipeStatus != null) {
+                        int led = (enrollStatus.templateResult == 0) ? R.mipmap.led_swipe_good
+                                : R.mipmap.led_swipe_bad;
+                        mSwipeStatus.setImageResource(led);
+                        mSwipeStatus.startAnimation(mFadeInAnimation);
                     }
 
-                    final Bitmap fp = (Bitmap) vcsFp.fingerprint;
-                    final int imageQlty = vcsFp.quality;
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            try {
-                                if (mFingerprintImg != null) {
-
-                                    // flashing LED
-                                    if (mSwipeStatus != null) {
-                                        int led = (imageQlty == FingerprintApiWrapper.VCS_IMAGE_QUALITY_GOOD) ? R.mipmap.led_swipe_good
-                                                : R.mipmap.led_swipe_bad;
-                                        mSwipeStatus.setImageResource(led);
-                                        mSwipeStatus.setAnimation(null);
-                                        mSwipeStatus
-                                                .setVisibility(View.VISIBLE);
-                                    }
-
-                                    // stop playback and hide video view
-                                    if (mVideoView != null) {
-                                        if (mVideoView.isPlaying()) {
-                                            mVideoView.stopPlayback();
-                                        }
-                                        mVideoView.setVisibility(View.GONE);
-                                    }
-
-                                    // Show fingerprint
-                                    mFingerprintImg.setImageBitmap(fp);
-                                    mFingerprintImg.setVisibility(View.VISIBLE);
-                                }
-                            } catch (Exception e) {
-                                Log.e(TAG, "Decoding fingerprint failed!");
-                                e.printStackTrace();
-                            }
-
-                            showImageQualityFeedback(imageQlty);
-
+                    // enrollment progress
+                    Log.i(TAG, "Enroll progress:" + enrollStatus.progress);
+                    if (enrollStatus.templateResult == 0) { // good swipe
+                        if (mEnrollProgress != null) {
+                            mEnrollProgress.setProgress(enrollStatus.progress);
                         }
-                    });
+                        if (mEnrollPercentage != null) {
+                            mEnrollPercentage.setText(enrollStatus.progress + "%");
+                        }
+                    } else { // bad swipe
+                        showBadSwipe(mEnrollProgress.getProgress());
+                    }
 
+                    break;
+
+                case FingerprintApiWrapper.VCS_EVT_EIV_FINGERPRINT_CAPTURED:
+                    if (mUiStage == Stage.PracticeMode) {
+                        statusMsg = getString(R.string.fingerprint_captured);
+                        log("Fingerprint captured");
+
+                        event_data = (FingerprintEvent) msg.obj;
+                        if (event_data == null) {
+                            Log.e(TAG, "Invalid event data");
+                            return;
+                        }
+
+                        FingerprintBitmap vcsFp = mFingerprint
+                                .getFingerprint(event_data.eventData);
+                        if (vcsFp == null) {
+                            Log.e(TAG, "Invalid fingerprint object");
+                            return;
+                        }
+
+                        if (!(vcsFp.fingerprint instanceof Bitmap)) {
+                            Log.e(TAG, "Invalid fingerprint bitmap");
+                            return;
+                        }
+
+                        final Bitmap fp = (Bitmap) vcsFp.fingerprint;
+                        final int imageQlty = vcsFp.quality;
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                try {
+                                    if (mFingerprintImg != null) {
+
+                                        // flashing LED
+                                        if (mSwipeStatus != null) {
+                                            int led = (imageQlty == FingerprintApiWrapper.VCS_IMAGE_QUALITY_GOOD) ? R.mipmap.led_swipe_good
+                                                    : R.mipmap.led_swipe_bad;
+                                            mSwipeStatus.setImageResource(led);
+                                            mSwipeStatus.setAnimation(null);
+                                            mSwipeStatus
+                                                    .setVisibility(View.VISIBLE);
+                                        }
+
+                                        // stop playback and hide video view
+                                        if (mVideoView != null) {
+                                            if (mVideoView.isPlaying()) {
+                                                mVideoView.stopPlayback();
+                                            }
+                                            mVideoView.setVisibility(View.GONE);
+                                        }
+
+                                        // Show fingerprint
+                                        mFingerprintImg.setImageBitmap(fp);
+                                        mFingerprintImg.setVisibility(View.VISIBLE);
+                                    }
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Decoding fingerprint failed!");
+                                    e.printStackTrace();
+                                }
+
+                                showImageQualityFeedback(imageQlty);
+
+                            }
+                        });
+
+                        return;
+                    }
+                    break;
+
+                case FingerprintApiWrapper.VCS_EVT_ENROLL_SUCCESS:
+                    mFpIndex++;
+                    onEnrollmentSuccess();
                     return;
-                }
-                break;
-
-            case FingerprintApiWrapper.VCS_EVT_ENROLL_SUCCESS:
-                mFpIndex++;
-                onEnrollmentSuccess();
-                return;
                 // break;
 
-            case FingerprintApiWrapper.VCS_EVT_ENROLL_FAILED:
-                int opResult = FingerprintApiWrapper.VCS_RESULT_FAILED;
-                if (msg.obj != null) {
-                    FingerprintEvent fpEvent = (FingerprintEvent) msg.obj;
-                    if (fpEvent != null && fpEvent.eventData instanceof Integer) {
-                        opResult = (Integer) fpEvent.eventData;
+                case FingerprintApiWrapper.VCS_EVT_ENROLL_FAILED:
+                    int opResult = FingerprintApiWrapper.VCS_RESULT_FAILED;
+                    if (msg.obj != null) {
+                        FingerprintEvent fpEvent = (FingerprintEvent) msg.obj;
+                        if (fpEvent != null && fpEvent.eventData instanceof Integer) {
+                            opResult = (Integer) fpEvent.eventData;
+                        } else {
+                            Log.w(TAG,
+                                    "handleMessage()::Result flag is not an Integer");
+                        }
                     } else {
                         Log.w(TAG,
-                                "handleMessage()::Result flag is not an Integer");
+                                "handleMessage()::Additional event data not available");
                     }
-                } else {
-                    Log.w(TAG,
-                            "handleMessage()::Additional event data not available");
-                }
 
-                statusMsg = enroll_failed;
+                    statusMsg = enroll_failed;
 
-                switch (opResult) {
+                    switch (opResult) {
 
-                // verify cancelled?
-                case FingerprintApiWrapper.VCS_RESULT_OPERATION_CANCELED:
-                    mNextButton.setEnabled(true);
-                    break;
+                        // verify cancelled?
+                        case FingerprintApiWrapper.VCS_RESULT_OPERATION_CANCELED:
+                            mNextButton.setEnabled(true);
+                            break;
 
-                // sensor removed?
-                case FingerprintApiWrapper.VCS_RESULT_SENSOR_IS_REMOVED:
-                    toastMsg = getString(R.string.sensor_removed);
-                    break;
+                        // sensor removed?
+                        case FingerprintApiWrapper.VCS_RESULT_SENSOR_IS_REMOVED:
+                            toastMsg = getString(R.string.sensor_removed);
+                            break;
 
-                // sensor not found?
-                case FingerprintApiWrapper.VCS_RESULT_SENSOR_NOT_FOUND:
-                    toastMsg = getString(R.string.sensor_not_found);
-                    break;
+                        // sensor not found?
+                        case FingerprintApiWrapper.VCS_RESULT_SENSOR_NOT_FOUND:
+                            toastMsg = getString(R.string.sensor_not_found);
+                            break;
 
-                // verify failed?
-                case FingerprintApiWrapper.VCS_RESULT_USER_FINGER_ALREADY_ENROLLED:
-                    toastMsg = getString(R.string.finger_previously_enrolled);
-                    mNextButton.setEnabled(true);
-                    break;
+                        // verify failed?
+                        case FingerprintApiWrapper.VCS_RESULT_USER_FINGER_ALREADY_ENROLLED:
+                            toastMsg = getString(R.string.finger_previously_enrolled);
+                            mNextButton.setEnabled(true);
+                            break;
 
-                case FingerprintApiWrapper.VCS_RESULT_TOO_MANY_BAD_SWIPES:
-                    toastMsg = getString(R.string.too_many_bad_swipes);
-                    mNextButton.setEnabled(true);
-                    break;
+                        case FingerprintApiWrapper.VCS_RESULT_TOO_MANY_BAD_SWIPES:
+                            toastMsg = getString(R.string.too_many_bad_swipes);
+                            mNextButton.setEnabled(true);
+                            break;
 
-                case FingerprintApiWrapper.VCS_RESULT_MATCHER_ADD_IMAGE_FAILED:
-                    toastMsg = getString(R.string.mather_add_image_failed);
-                    mNextButton.setEnabled(true);
-                    break;
+                        case FingerprintApiWrapper.VCS_RESULT_MATCHER_ADD_IMAGE_FAILED:
+                            toastMsg = getString(R.string.mather_add_image_failed);
+                            mNextButton.setEnabled(true);
+                            break;
 
-                case FingerprintApiWrapper.VCS_RESULT_USER_DOESNT_EXIST:
+                        case FingerprintApiWrapper.VCS_RESULT_USER_DOESNT_EXIST:
+                        default:
+                            toastMsg = statusMsg;
+                            mNextButton.setEnabled(true);
+                            break;
+                    } // switch(eventdata.opResult)
+                    break; // case VCS_EVT_ENROLL_COMPLETED
+
                 default:
-                    toastMsg = statusMsg;
-                    mNextButton.setEnabled(true);
+                    log("handleMessage() -unhandled event: " + msg.what);
                     break;
-                } // switch(eventdata.opResult)
-                break; // case VCS_EVT_ENROLL_COMPLETED
-
-            default:
-                log("handleMessage() -unhandled event: " + msg.what);
-                break;
             } // switch(msg.what)
 
             // update UI
@@ -1043,14 +1062,18 @@ public class ChooseLockFingerprint extends BaseActivity implements
     }
 
     private void onEnrollmentSuccess() {
-
         String prompt = getString(R.string.enrollment_success);
         Log.i(TAG, "prompt:" + prompt);
         Toast.makeText(mContext, prompt, Toast.LENGTH_LONG).show();
         setStatusText(getString(R.string.enrollment_success));
-        showAlertDialog(mContext, SweetAlertDialog.RENAME_TYPE);
-        // finish();
-
+        //showAlertDialog(mContext, SweetAlertDialog.RENAME_TYPE);
+        //默认命名指纹
+        String default_string = getString(R.string.finger_name_defualt);
+        String fingerName = default_string + mFpIndex;
+        mProviderHelper.insertFingerData(mContext, null, null, String.valueOf(mFpIndex), fingerName);
+        Intent intent = new Intent(ChooseLockFingerprint.this, MainActivity.class);
+        startActivityForResult(intent, 0);
+        finish();
         // //Change to next screen
         // mHandler.postDelayed(new Runnable() {
         // public void run() {
@@ -1164,18 +1187,18 @@ public class ChooseLockFingerprint extends BaseActivity implements
     private void showImageQualityFeedback(final int quality) {
         String message = "";
         switch (quality) {
-        case FingerprintApiWrapper.VCS_IMAGE_QUALITY_GOOD:
-            message = getString(R.string.good_swipe);
-            break;
-        case FingerprintApiWrapper.VCS_IMAGE_QUALITY_TOO_FAST:
-            message = getString(R.string.bad_swipe_too_fast);
-            break;
-        case FingerprintApiWrapper.VCS_IMAGE_QUALITY_TOO_SLOW:
-            message = getString(R.string.bad_swipe_too_slow);
-            break;
-        default:
-            message = getString(R.string.bad_swipe_default);
-            break;
+            case FingerprintApiWrapper.VCS_IMAGE_QUALITY_GOOD:
+                message = getString(R.string.good_swipe);
+                break;
+            case FingerprintApiWrapper.VCS_IMAGE_QUALITY_TOO_FAST:
+                message = getString(R.string.bad_swipe_too_fast);
+                break;
+            case FingerprintApiWrapper.VCS_IMAGE_QUALITY_TOO_SLOW:
+                message = getString(R.string.bad_swipe_too_slow);
+                break;
+            default:
+                message = getString(R.string.bad_swipe_default);
+                break;
         }
 
         if (!message.equals("") && (mStatusText != null)) {
@@ -1277,12 +1300,16 @@ public class ChooseLockFingerprint extends BaseActivity implements
 
             String promptMsg = "";
             if (mFpIndex > 1) {
+                //ToastUtils.show(mContext,mFingerList.size()+"zhen");
                 mFpMask = mFingerprint
                         .getEnrolledFingerList(ConstantUtils.USER_ID);
-                mRemoveFingerPrintLayout.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.VISIBLE);
+                mFingerPrompt.setVisibility(View.GONE);
                 refreshFingerListView();
             } else {
-                mRemoveFingerPrintLayout.setVisibility(View.GONE);
+                //ToastUtils.show(mContext,mFingerList.size()+"jia");
+                mListView.setVisibility(View.GONE);
+                mFingerPrompt.setVisibility(View.VISIBLE);
             }
 
             showBusyDialog(false);
@@ -1343,21 +1370,20 @@ public class ChooseLockFingerprint extends BaseActivity implements
                         if (mFingerList != null) {
                             mFingerList.add(hm);
                         }
-
                     }
                 }
             }
         }
         if (mFingerList.size() > 0) {
             mListAdapter = new SimpleAdapter(mContext, mFingerList,
-                    R.layout.fingerprint_list_item, new String[] { ITEM_NAME },
-                    new int[] { R.id.text1 });
+                    R.layout.fingerprint_list_item, new String[]{ITEM_NAME},
+                    new int[]{R.id.text1});
             mListView.setAdapter(mListAdapter);
             mListView.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1,
-                        int position, long id) {
+                                        int position, long id) {
                     // TODO Auto-generated method stub
                     mDeleteFingerIndex = mFingerList.get(position)
                             .get(ITEM_FINGER).toString();
@@ -1374,73 +1400,73 @@ public class ChooseLockFingerprint extends BaseActivity implements
         // TODO Auto-generated method stub
         final SweetAlertDialog alert = new SweetAlertDialog(context, type);
         switch (type) {
-        case SweetAlertDialog.NORMAL_TYPE:
+            case SweetAlertDialog.NORMAL_TYPE:
 
-            break;
-        case SweetAlertDialog.ERROR_TYPE:
+                break;
+            case SweetAlertDialog.ERROR_TYPE:
 
-            alert.setTitleText(getResources().getString(
-                    R.string.remove_fingerprints));
-            alert.setConfirmText(getResources().getString(R.string.ok));
-            alert.showCancelButton(true);
-            alert.setCancelText(getResources().getString(R.string.cancel));
-            alert.setConfirmText(getResources().getString(R.string.ok));
-            alert.setConfirmClickListener(new OnSweetClickListener() {
+                alert.setTitleText(getResources().getString(R.string.remove_fingerprints));
+                alert.setConfirmText(getResources().getString(R.string.ok));
+                alert.showCancelButton(true);
+                alert.setCancelText(getResources().getString(R.string.cancel));
+                alert.setConfirmText(getResources().getString(R.string.ok));
+                alert.setConfirmClickListener(new OnSweetClickListener() {
 
-                @Override
-                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    // TODO Auto-generated method stub
-                    removeFingerprints(mDeleteFingerIndex);
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        // TODO Auto-generated method stub
+                        removeFingerprints(mDeleteFingerIndex);
 
-                    mFingerList.remove(mPosition);
-                    mListAdapter.notifyDataSetChanged();
-                    if (mFingerList.size() < 1) {
-                        mRemoveFingerPrintLayout.setVisibility(View.GONE);
-                    }
+                        mFingerList.remove(mPosition);
+                        mListAdapter.notifyDataSetChanged();
+                        if (mFingerList.size() < 1) {
+                            mListView.setVisibility(View.GONE);
+                            mFingerPrompt.setVisibility(View.VISIBLE);
+                        }
 
-                    alert.dismiss();
-                }
-            });
-            alert.setCancelClickListener(new OnSweetClickListener() {
-
-                @Override
-                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    // TODO Auto-generated method stub
-                    alert.dismiss();
-                }
-            });
-            alert.show();
-            break;
-        case SweetAlertDialog.RENAME_TYPE:
-            alert.setTitleText(getResources().getString(R.string.name_title));
-            alert.setConfirmText(getResources().getString(R.string.ok));
-            alert.setConfirmText(getResources().getString(R.string.ok));
-            alert.setConfirmClickListener(new OnSweetClickListener() {
-
-                @Override
-                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    // TODO Auto-generated method stub
-                    String name = alert.getRenameStr();
-                    TextUtils.isEmpty(name);
-                    if (TextUtils.isEmpty(name)) {
-                        ToastUtils.show(mContext,
-                                getResources().getString(R.string.name_empty));
-                    } else {
-                        mProviderHelper.insertFingerData(mContext, null, null,
-                                String.valueOf(mFpIndex - 1), name);
-                        // mProviderHelper.updateFingerData(mContext,
-                        // String.valueOf(mFpIndex - 1), name);
                         alert.dismiss();
-                        finish();
                     }
+                });
+                alert.setCancelClickListener(new OnSweetClickListener() {
 
-                }
-            });
-            alert.show();
-            break;
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        // TODO Auto-generated method stub
+                        alert.dismiss();
+                    }
+                });
+                alert.show();
+                break;
+            case SweetAlertDialog.RENAME_TYPE:
+                alert.setTitleText(getResources().getString(R.string.name_title));
+                alert.setConfirmText(getResources().getString(R.string.ok));
+                alert.setConfirmText(getResources().getString(R.string.ok));
+                alert.setConfirmClickListener(new OnSweetClickListener() {
 
-        default:
-            break;
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        // TODO Auto-generated method stub
+                        String name = alert.getRenameStr();
+                        TextUtils.isEmpty(name);
+                        if (TextUtils.isEmpty(name)) {
+                            ToastUtils.show(mContext,
+                                    getResources().getString(R.string.name_empty));
+                        } else {
+                            mProviderHelper.insertFingerData(mContext, null, null,
+                                    String.valueOf(mFpIndex - 1), name);
+                            // mProviderHelper.updateFingerData(mContext,
+                            // String.valueOf(mFpIndex - 1), name);
+                            alert.dismiss();
+                            finish();
+                        }
+
+                    }
+                });
+                alert.show();
+                break;
+
+            default:
+                break;
         }
 
     }

@@ -194,10 +194,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                         break;
                     default:
                         break;
-
-
                 }
-
             }
         });
 
@@ -349,6 +346,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         }
 
     }
+
     private class RecyleViewAdapter extends RecyclerView.Adapter<RecyleViewAdapter.ViewHolder> {
 
         private List<RecyleViewItem> mItems;
@@ -388,7 +386,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                             startActivitySafely(ConstantUtils.ACTION_MHIDDENFILELAYOUT);
                             break;
                         case 4:
-                            startActivity(new Intent(mContext, SplashActivity.class));
+                            startActivity(new Intent(mContext, ContactsActivity.class));
                             break;
                         case 5:
                             startActivity(new Intent(mContext, AboutActivity.class));

@@ -236,7 +236,7 @@ public class VideoPageActivity extends BasePhotoActivity implements
 
     @Override
     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-            int position, long arg3) {
+                                   int position, long arg3) {
         // TODO Auto-generated method stub
         initTileBar(true);
         mAdapter.setMultiChoiseMode(true);
@@ -260,35 +260,35 @@ public class VideoPageActivity extends BasePhotoActivity implements
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-        case R.id.btn_load_hide:
-            Toast.makeText(mContext, "正在加载隐藏视频", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(VideoPageActivity.this,
-                    VideoHideListActivity.class);
-            intent.putExtra("show_hide", true);
-            startActivityForResult(intent, 0);
+            case R.id.btn_load_hide:
+                Toast.makeText(mContext, "正在加载隐藏视频", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(VideoPageActivity.this,
+                        VideoHideListActivity.class);
+                intent.putExtra("show_hide", true);
+                startActivityForResult(intent, 0);
 
-            break;
-        case R.id.btn_hide:
-            // 确定按钮的事件
-            mAdapter.getSelectData();
-            break;
-        case R.id.btn_select_all:
-            if (mSelectAllBtn.getText().equals("全选")) {
-                mSelectAllBtn.setText("全不选");
-                mAdapter.selectAll();
-            } else {
-                mSelectAllBtn.setText("全选");
-                mAdapter.clearSelect();
-            }
-            mAdapter.notifyDataSetChanged();
-            break;
+                break;
+            case R.id.btn_hide:
+                // 确定按钮的事件
+                mAdapter.getSelectData();
+                break;
+            case R.id.btn_select_all:
+                if (mSelectAllBtn.getText().equals("全选")) {
+                    mSelectAllBtn.setText("全不选");
+                    mAdapter.selectAll();
+                } else {
+                    mSelectAllBtn.setText("全选");
+                    mAdapter.clearSelect();
+                }
+                mAdapter.notifyDataSetChanged();
+                break;
 
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View view, int position,
-            long arg3) {
+                            long arg3) {
         // TODO Auto-generated method stub
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -370,26 +370,26 @@ public class VideoPageActivity extends BasePhotoActivity implements
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-            case HIDE_OK:
-                if (mHidingDialog != null) {
-                    mHidingDialog.dismiss();
-                }
-                LoadVideoAsyncTask task = new LoadVideoAsyncTask();
-                task.execute(0);
-                break;
-            case HIDE_FAIL:
-                Toast.makeText(mContext, "隐藏失败，请稍后重试!", 1000).show();
-                break;
-            case SCAN_OK:
-                initAlbumePage();
-                break;
+                case HIDE_OK:
+                    if (mHidingDialog != null) {
+                        mHidingDialog.dismiss();
+                    }
+                    LoadVideoAsyncTask task = new LoadVideoAsyncTask();
+                    task.execute(0);
+                    break;
+                case HIDE_FAIL:
+                    Toast.makeText(mContext, "隐藏失败，请稍后重试!", 1000).show();
+                    break;
+                case SCAN_OK:
+                    initAlbumePage();
+                    break;
             }
         }
 
     };
 
     protected void onActivityResult(int requestCode, int resultCode,
-            Intent intent) {
+                                    Intent intent) {
 
         if (requestCode == 0 && intent != null
                 && intent.getBooleanExtra("refresh", false)) {

@@ -22,6 +22,7 @@
             android:layout_centerVertical="true"
             android:paddingRight="20dip"
             android:textSize="20dip"
+
             android:text="@string/open_switch_app" />
 
         <ImageView

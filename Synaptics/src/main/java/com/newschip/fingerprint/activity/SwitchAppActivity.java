@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,6 +58,8 @@ public class SwitchAppActivity extends BaseActivity implements OnClickListener,
     private static final String ITEM_FINGER = "itemFinger";
     private SimpleAdapter mListAdapter;
     private MenuInitTask mMenuInitTask;
+
+    private Toolbar mToolbar;
     @Override
     protected int getLayoutView() {
         return R.layout.activity_fast_switch_app;
@@ -65,7 +68,7 @@ public class SwitchAppActivity extends BaseActivity implements OnClickListener,
     protected void onCreate(Bundle arg0) {
         // TODO Auto-generated method stub
         super.onCreate(arg0);
-
+        initToolbar();
         mKeygaurdMgr = (KeyguardManager) mContext
                 .getSystemService(Context.KEYGUARD_SERVICE);
         
@@ -75,9 +78,19 @@ public class SwitchAppActivity extends BaseActivity implements OnClickListener,
         mMenuInitTask = new MenuInitTask();
         mMenuInitTask.execute(mContext);
     }
-
+    private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        super.initToolbar(mToolbar);
+        mToolbar.setTitle(R.string.switch_app);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
     private void initViews() {
-        setCommonTitleBarTitle(R.string.switch_app);
+        //setCommonTitleBarTitle(R.string.switch_app);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.switch_layout);
         mRelativeLayout.setOnClickListener(this);
         mRelativeLayout.setClickable(false);

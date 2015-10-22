@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -32,7 +33,7 @@ public class AppListActivity extends BaseActivity implements OnClickListener {
     private ImageView mImageView;
 
     private ListView mListView;
-
+    private Toolbar mToolbar;
     @Override
     protected int getLayoutView() {
         return R.layout.activity_app_list;
@@ -41,7 +42,6 @@ public class AppListActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle();
         PROVIDER_TABLE = getIntent().getStringExtra("provider_table");
         FINGER_NAME = getIntent().getStringExtra("itemName");
         ITEM_FINGER = getIntent().getStringExtra("itemFinger");
@@ -49,6 +49,8 @@ public class AppListActivity extends BaseActivity implements OnClickListener {
             PROVIDER_TABLE = TABLE_PROTECT;
         }
         mProviderHelper = new ProviderHelper(this, PROVIDER_TABLE);
+
+        initToolbar();
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.switch_layout);
         mRelativeLayout.setOnClickListener(this);
@@ -109,9 +111,16 @@ public class AppListActivity extends BaseActivity implements OnClickListener {
         
     }
 
-    private void setTitle() {
-        CommonTitleLayout ct = (CommonTitleLayout) findViewById(R.id.title_bar);
-        ct.setTitle(R.string.choose_app);
+    private void initToolbar(){
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        super.initToolbar(mToolbar);
+        mToolbar.setTitle(R.string.choose_app);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override

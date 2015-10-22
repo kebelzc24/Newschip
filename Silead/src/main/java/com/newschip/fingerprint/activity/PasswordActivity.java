@@ -132,7 +132,7 @@ public class PasswordActivity extends BaseActivity implements OnClickListener {
                                         MainActivity.class));
                             } else {
                                 startActivity(new Intent(PasswordActivity.this,
-                                        LoginRegisterActivity.class));
+                                        MainActivity.class));
                             }
                         } else {
                             PackageUtils.runApp(mContext, pkg);
@@ -156,7 +156,7 @@ public class PasswordActivity extends BaseActivity implements OnClickListener {
                                     MainActivity.class));
                         } else {
                             startActivity(new Intent(PasswordActivity.this,
-                                    LoginRegisterActivity.class));
+                                    MainActivity.class));
                         }
                         
 

@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
-    <include layout="@layout/title_bar" />
+    <include layout="@layout/toolbar_layout"/>
 
     <RelativeLayout
         android:id="@+id/switch_layout"
@@ -22,6 +22,7 @@
             android:layout_centerVertical="true"
             android:paddingRight="20dip"
             android:textSize="20dip"
+            android:textColor="@color/dark_grey"
             android:text="@string/open_switch_app" />
 
         <ImageView
