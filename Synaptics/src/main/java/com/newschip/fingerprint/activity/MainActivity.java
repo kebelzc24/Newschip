@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 
     private void initView() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerMenuListView = (ListView) findViewById(R.id.left_drawer_listview);
@@ -155,7 +155,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         super.initToolbar(mToolbar);
+        mToolbar.setTitle(R.string.app_name);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     private List<Map<String, Object>> getData() {
@@ -248,7 +252,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         RecyleViewItem item1 = new RecyleViewItem(R.mipmap.finger, getStringRes(R.string.manager_finger_print), getStringRes(R.string.enroll_or_remove_finger_print));
         RecyleViewItem item2 = new RecyleViewItem(R.mipmap.app_lock, getStringRes(R.string.app_lock), getStringRes(R.string.app_may_be_locked));
         RecyleViewItem item3 = new RecyleViewItem(R.mipmap.app_switch, getStringRes(R.string.switch_app), getStringRes(R.string.switch_app_content));
-        RecyleViewItem item4 = new RecyleViewItem(R.mipmap.image_guise_logo_none, getStringRes(R.string.hidden_file), getStringRes(R.string.hidden_file_content));
+        RecyleViewItem item4 = new RecyleViewItem(R.mipmap.file_hide, getStringRes(R.string.hidden_file), getStringRes(R.string.hidden_file_content));
         RecyleViewItem item5 = new RecyleViewItem(R.mipmap.finger, getStringRes(R.string.fast_dial), getStringRes(R.string.fast_dial_content));
         mRecyleViewItems.add(item1);
         mRecyleViewItems.add(item2);

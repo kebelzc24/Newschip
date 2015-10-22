@@ -237,8 +237,9 @@
     <string name="about">关于</string>
     <string name="contact_us">联系我们</string>
     <string name="score">给个好评</string>
-    <string-array name="drawer_content">
-        <item>设置</item>
+        <string-array name="drawer_content">
+    <!--因为数组的内容会覆盖标题，所以直接将title名设置到数组中，以后如果想要添加listview，再修改即可-->
+        <item>指通无限</item>
         <item>帮助</item>
         <item>关于</item>
     </string-array>
