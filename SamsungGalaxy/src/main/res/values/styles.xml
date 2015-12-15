@@ -1,0 +1,216 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextView</item>
+        <item name="popupTheme">@style/popupTheme</item>
+        <item name="popupMenuStyle">@style/popupMenuStyle</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background</item>
+        <item name="selectableItemBackground">@drawable/selectable_background</item>
+    </style>
+
+    <style name="AppBaseTheme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextView</item>
+        <item name="popupTheme">@style/popupTheme</item>
+        <item name="popupMenuStyle">@style/popupMenuStyle</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background</item>
+        <item name="selectableItemBackground">@drawable/selectable_background</item>
+    </style>
+
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="popupTheme" parent="AppBaseTheme.Light">
+
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="popupMenuStyle" parent="Base.Widget.AppCompat.PopupMenu.Overflow"></style>
+
+    <style name="AutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHighlight">@color/warm_red</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <style name="SettingTheme" parent="AppBaseTheme.Light">
+
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@color/grey</item>
+        <item name="colorAccent">@color/warm_red</item>
+    </style>
+
+    <style name="MainTheme" parent="AppBaseTheme.Light">
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="colorAccent">@color/main_color</item>
+    </style>
+
+    <style name="AboutTheme" parent="AppBaseTheme.Light">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="AppBaseTheme">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_drawable</item>
+    </style>
+
+    <style name="NotesItemTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColorPrimary">@color/dark_grey</item>
+        <item name="android:textColorSecondary">#848484</item>
+        <item name="colorPrimary">@color/warm_red</item>
+        <item name="colorPrimaryDark">@color/dark_warm_red</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/warm_red</item>
+        <item name="colorPrimaryDark">@color/dark_warm_red</item>
+        <item name="colorAccent">@color/warm_red</item>
+    </style>
+
+    <style name="EditTextTheme">
+        <item name="android:textSize">@dimen/abc_text_size_medium_material</item>
+        <item name="android:textCursorDrawable">@drawable/note_cursor_drawable</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="CustomWindowTitleBackground">
+        <item name="android:background">#46A32A</item>
+    </style>
+
+    <style name="Theme.mine" parent="@android:style/Theme.Holo.Light.NoActionBar">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style name="my_theme" parent="android:Theme.Holo.Light">
+        <item name="android:actionMenuTextColor">#FF0000</item>
+        <item name="android:actionBarStyle">@style/my_actionbar_style</item>
+    </style>
+
+    <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#27AE60</item>
+    </style>
+
+    <style name="SecurityPreferenceButtonContainer" parent="@android:Widget.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:weightSum">2</item>
+        <item name="android:dividerPadding">8dip</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="android:textColor">@color/button_text_color</item>
+    </style>
+
+    <style name="SecurityPreferenceButton" parent="@android:style/Widget.Holo.Button.Borderless">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+    </style>
+
+    <!-- number_keyboard.xml -->
+    <style name="number_text_style">
+        <item name="android:background">@drawable/number_button_selector</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!-- activity_pwd.xml -->
+    <style name="style_edit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@mipmap/edit_bg</item>
+    </style>
+
+    <style name="alert_dialog" parent="@android:Theme.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/float_transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="dialog_blue_button" parent="@android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="android:textColor">@color/button_text_color</item>
+    </style>
+
+    <!-- 自定义loading dialog -->
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <declare-styleable name="MaterialMenuView">
+        <attr name="mm_color" format="color" />
+        <attr name="mm_scale" format="integer" />
+        <attr name="mm_transformDuration" format="integer" />
+        <attr name="mm_pressedDuration" format="integer" />
+        <attr name="mm_strokeWidth" format="integer" />
+        <attr name="mm_rtlEnabled" format="boolean" />
+    </declare-styleable>
+
+    <style name="MainTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MainTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

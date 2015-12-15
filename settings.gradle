@@ -1,1 +1,1 @@
-include ':MaterialPreference', ':Silead', ':Synaptics'
+include ':MaterialPreference', ':Silead', ':Synaptics', ':SamsungGalaxy'

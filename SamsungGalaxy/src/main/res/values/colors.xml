@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#27AE60</color>
+    <color name="colorPrimaryDark">#27AE60</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="title_background_color">#263238</color>
+    <color name="line_color">#dcdcdc</color>
+    <color name="green">#33FF00</color>
+    <!-- <color name="login_background">#E3F0d3</color> -->
+    <color name="number_background">#C8DCA5</color>
+    <color name="devide_line">#9D9D9D</color>
+    <color name="text_title_color">#FFFFFF</color>
+    <color name="text_content_color">#CEEFBA</color>
+
+    <color name="float_transparent">#66000000</color>
+    <color name="sweet_dialog_bg_color">#FFFFFF</color>
+    <color name="button_text_color">#FFFFFF</color>
+    <color name="gray_btn_bg_color">#D0D0D0</color>
+    <color name="gray_btn_bg_pressed_color">#B6B6B6</color>
+    <color name="blue_btn_bg_color">#AEDEF4</color>
+    <color name="blue_btn_bg_pressed_color">#96BFD2</color>
+    <color name="red_btn_bg_color">#DD6B55</color>
+    <color name="red_btn_bg_pressed_color">#CD5B55</color>
+    <color name="error_stroke_color">#F27474</color>
+    <color name="success_stroke_color">#A5DC86</color>
+    <color name="trans_success_stroke_color">#33A5DC86</color>
+    <color name="warning_stroke_color">#F8BB86</color>
+
+
+    <color name="selected">#30000050</color>
+    <color name="white">#ffffff</color>
+    <color name="title_bar_bg">#27AE60</color>
+    <color name="listview_bg">#fff</color>
+
+    <color name="password_bg_color">#8D6BD6</color>
+
+    <color name="light_warm_red">#CCFF6347</color>
+    <color name="warm_red">#FF6347</color>
+    <color name="dark_warm_red">#FF6347</color>
+    <color name="grey" >#ffbebebe</color>
+    <color name="dark_grey">#FF080808</color>
+    <color name="light_grey">#ffbebebe</color>
+    <color name="light_grey_1">#FFEEEEEE</color>
+
+    <color name="main_color">@color/title_bar_bg</color>
+    <color name="dark_main_color">@color/title_bar_bg</color>
+
+    <color name="drawer_scrim_color">#88eeeeee</color>
+    <color name="action_bar_title_color">@android:color/white</color>
+    <color name="window_background">@android:color/white</color>
+    <color name="swiplist_background">#E3F0d3</color>
+</resources>
