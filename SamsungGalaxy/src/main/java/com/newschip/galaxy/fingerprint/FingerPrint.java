@@ -1,6 +1,7 @@
 package com.newschip.galaxy.fingerprint;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -165,6 +166,9 @@ public class FingerPrint implements IFingerPrint {
 
     @Override
     public boolean isDeviceSupport() {
+        if ((Build.BRAND.compareToIgnoreCase("Samsung") != 0) && (Build.MANUFACTURER.compareToIgnoreCase("Samsung") != 0)){
+            return false;
+        }
         return mSpass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT);
     }
 }

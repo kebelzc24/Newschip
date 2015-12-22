@@ -3,6 +3,7 @@ package com.newschip.galaxy.activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,14 +85,14 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         mBtnSelectAll.setOnClickListener(this);
         mBtnHide.setOnClickListener(this);
         mNoMediaText = (TextView) findViewById(R.id.tv_no_media);
+        new LoadImageTask().execute(0);
+        new LoadVideoTask().execute(0);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        new LoadImageTask().execute(0);
-        new LoadVideoTask().execute(0);
     }
 
     @Override
@@ -322,17 +324,9 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         @Override
         protected Void doInBackground(Void... arg0) {
             // TODO Auto-generated method stub
-            Uri mUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-            ContentResolver mContentResolver = mContext.getContentResolver();
-            Cursor mCursor = mContentResolver.query(mUri, null, null, null,
-                    MediaStore.Video.Media.DEFAULT_SORT_ORDER);
-            int i = 0;
-            while (mCursor.moveToNext()) {
-                long id = mCursor.getLong(mCursor
-                        .getColumnIndex(MediaStore.MediaColumns._ID));
-                mVideoBean.get(i).setmVideoThumbnail(getThumbnail(id));
+            for(MediaBean bean : mVideoBean) {
+                bean.setmVideoThumbnail(getThumbnail(bean.getmVideoId()));
             }
-            mCursor.close();
             return null;
         }
 
@@ -351,14 +345,10 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
-        options.inPreferredConfig = Bitmap.Config.ARGB_4444;
-        options.inScaled = true;
-        options.inJustDecodeBounds = false;
-        options.inPurgeable = true;
-        options.inInputShareable = true;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         ContentResolver cr = mContext.getContentResolver();
         bitmap = MediaStore.Video.Thumbnails.getThumbnail(cr, id,
-                MediaStore.Images.Thumbnails.MINI_KIND, null);
+                MediaStore.Images.Thumbnails.MINI_KIND, options);
         return bitmap;
     }
 
