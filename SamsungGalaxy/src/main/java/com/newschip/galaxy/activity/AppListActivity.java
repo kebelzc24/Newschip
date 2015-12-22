@@ -52,11 +52,12 @@ public class AppListActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mToolbar.setTitle(getResources().getString(R.string.choose_app));
+        getSupportActionBar().setTitle(getResources().getString(R.string.choose_app));
         mType = getIntent().getStringExtra(EXTRA_TYPE);
         mFingerIndex = getIntent().getIntExtra(EXTRA_FINGER_INDEX,-1);
         if(mType ==null){
             mType = TYPE_PROTECT;
+            getSupportActionBar().setTitle(getResources().getString(R.string.app_lock));
         }
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.switch_layout);

@@ -73,6 +73,7 @@ public class MediaHideListActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(getString(R.string.hide_file));
         mImageLayout = (RelativeLayout) findViewById(R.id.rl_image);
         mVideoLayout = (RelativeLayout) findViewById(R.id.rl_video);
         mImageListView = (ListView) findViewById(R.id.lv_image);

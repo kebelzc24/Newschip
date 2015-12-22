@@ -246,6 +246,7 @@
     <string name="select_all">全选</string>
     <string name="select_none">全不选</string>
     <string name="hide">隐藏</string>
+    <string name="hide_file">隐藏的文件</string>
     <string name="rehide">恢复</string>
     <string name="score">给个好评</string>
     <string name="enroll_success">录入成功</string>
