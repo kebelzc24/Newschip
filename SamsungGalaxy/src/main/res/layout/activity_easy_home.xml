@@ -8,5 +8,30 @@
     tools:context="com.newschip.galaxy.activity.EasyHomeActivity">
 
     <include layout="@layout/toolbar_layout"/>
+    <RelativeLayout
+        android:id="@+id/switch_layout"
+        android:layout_width="match_parent"
+        android:paddingLeft="10dip"
+        android:layout_height="50dip"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/tv_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingRight="20dip"
+            android:textSize="20dip"
+            android:text="@string/open_easy_home" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dip"
+            android:layout_height="25dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="10dip"
+            android:src="@mipmap/button_unselect" />
+    </RelativeLayout>
 
 </LinearLayout>

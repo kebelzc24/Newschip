@@ -42,6 +42,10 @@ public class FingerPrint implements IFingerPrint {
     }
 
     public interface OnIndentifyFinishListener {
+        void onIdentifyReady();
+
+        void onIdentifyStart();
+
         void onIdentifyFinish(int index);
     }
 
@@ -56,20 +60,22 @@ public class FingerPrint implements IFingerPrint {
             Log.d(TAG, "Fingerprint Service is not supported in the device");
         }
 
-        if (mSpass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT)) {
-            mSpassFingerprint = new SpassFingerprint(mContext);
-            getRegisteredFingerprintName();
-        }
     }
 
     @Override
     public boolean hasRegisteredFinger() {
+        if(mSpassFingerprint == null){
+            mSpassFingerprint = new SpassFingerprint(mContext);
+        }
         return mSpassFingerprint.hasRegisteredFinger();
     }
 
     //检查是否有录入指纹
     @Override
     public ArrayList<String> getRegisteredFingerprintName() {
+        if (mSpassFingerprint == null) {
+            mSpassFingerprint = new SpassFingerprint(mContext);
+        }
         ArrayList<String> names = new ArrayList<>();
         try {
             SparseArray<String> mList = mSpassFingerprint.getRegisteredFingerprintName();
@@ -89,6 +95,9 @@ public class FingerPrint implements IFingerPrint {
 
     @Override
     public void startIdentify() {
+        if (mSpassFingerprint == null) {
+            mSpassFingerprint = new SpassFingerprint(mContext);
+        }
         try {
             if (!mSpassFingerprint.hasRegisteredFinger()) {
                 Log.d(TAG, "Please register finger first");
@@ -105,14 +114,16 @@ public class FingerPrint implements IFingerPrint {
             }
         } catch (UnsupportedOperationException e) {
             Log.d(TAG, "Fingerprint Service is not supported in the device");
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
     private SpassFingerprint.IdentifyListener mListener = new SpassFingerprint.IdentifyListener() {
+
         @Override
         public void onFinished(int eventStatus) {
+            Log.e("kebelzc245", "IdentifyListener onFinished...");
             int index = 0;
             try {
                 index = mSpassFingerprint.getIdentifiedFingerprintIndex();
@@ -126,12 +137,18 @@ public class FingerPrint implements IFingerPrint {
 
         @Override
         public void onReady() {
-
+            if (mOnIndentifyFinishListener != null) {
+                mOnIndentifyFinishListener.onIdentifyReady();
+            }
+            Log.e("kebelzc245", "IdentifyListener onReady...");
         }
 
         @Override
         public void onStarted() {
-
+            if (mOnIndentifyFinishListener != null) {
+                mOnIndentifyFinishListener.onIdentifyStart();
+            }
+            Log.e("kebelzc245", "IdentifyListener onStarted...");
         }
     };
 
@@ -141,7 +158,7 @@ public class FingerPrint implements IFingerPrint {
             mSpassFingerprint.cancelIdentify();
         } catch (IllegalStateException ise) {
         } catch (UnsupportedOperationException e) {
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }

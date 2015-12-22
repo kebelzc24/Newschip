@@ -203,10 +203,8 @@ public class ProviderHelper {
             state = "1";
         }
         ContentResolver cr = context.getContentResolver();
-//        Uri mUri = ContentUris.withAppendedId(Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE), 0);
         Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE);
         ContentValues cv = new ContentValues();
-//        cv.put(GalaxyContentProvider.ITEM_STATE_PROTECT,isEnableProtectState(context)?"1":"0");
         cv.put(GalaxyContentProvider.ITEM_STATE_SWITCH, state);
         cr.update(mUri, cv, null, null);
     }
@@ -217,17 +215,28 @@ public class ProviderHelper {
             state = "1";
         }
         ContentResolver cr = context.getContentResolver();
-//        Uri mUri = ContentUris.withAppendedId(Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE), 1);
         Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE);
         ContentValues cv = new ContentValues();
         cv.put(GalaxyContentProvider.ITEM_STATE_PROTECT, state);
-//        cv.put(GalaxyContentProvider.ITEM_STATE_SWITCH,isEnableSwitchState(context)?"1":"0");
         cr.update(mUri, cv, null, null);
     }
 
+    public static void enableEasyHomeState(Context context, boolean enable) {
+        String state = "0";
+        if (enable) {
+            state = "1";
+        }
+        ContentResolver cr = context.getContentResolver();
+        Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE);
+        ContentValues cv = new ContentValues();
+        cv.put(GalaxyContentProvider.ITEM_STATE_EASY_HOME, state);
+        cr.update(mUri, cv, null, null);
+    }
+
+
     public static boolean isEnableSwitchState(Context context) {
         String tmp = null;
-        String[] projection = {GalaxyContentProvider.ITEM_STATE_PROTECT, GalaxyContentProvider.ITEM_STATE_SWITCH};
+        String[] projection = {GalaxyContentProvider.ITEM_STATE_PROTECT, GalaxyContentProvider.ITEM_STATE_SWITCH,GalaxyContentProvider.ITEM_STATE_EASY_HOME};
         ContentResolver cr = context.getContentResolver();
         Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE);
         Cursor cu = cr.query(mUri, projection, null, null, null);
@@ -251,7 +260,7 @@ public class ProviderHelper {
 
     public static boolean isEnableProtectState(Context context) {
         String tmp = null;
-        String[] projection = {GalaxyContentProvider.ITEM_STATE_PROTECT, GalaxyContentProvider.ITEM_STATE_SWITCH};
+        String[] projection = {GalaxyContentProvider.ITEM_STATE_PROTECT, GalaxyContentProvider.ITEM_STATE_SWITCH,GalaxyContentProvider.ITEM_STATE_EASY_HOME};
         ContentResolver cr = context.getContentResolver();
         Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE);
         Cursor cu = cr.query(mUri, projection, null, null, null);
@@ -273,11 +282,36 @@ public class ProviderHelper {
         }
     }
 
+    public static boolean isEnableEasyHomeState(Context context) {
+        String tmp = null;
+        String[] projection = {GalaxyContentProvider.ITEM_STATE_PROTECT, GalaxyContentProvider.ITEM_STATE_SWITCH,GalaxyContentProvider.ITEM_STATE_EASY_HOME};
+        ContentResolver cr = context.getContentResolver();
+        Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_STATE);
+        Cursor cu = cr.query(mUri, projection, null, null, null);
+        if (cu != null) {
+            while (cu.moveToNext()) {
+                tmp = cu.getString(2);
+                break;
+            }
+            cu.close();
+        }
+        if (tmp == null) {
+            initState(context, mUri);
+            return false;
+        }
+        if (tmp.equals("0")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     private static void initState(Context context, Uri uri) {
         ContentResolver cr = context.getContentResolver();
         ContentValues values = new ContentValues();
         values.put(GalaxyContentProvider.ITEM_STATE_SWITCH, "0");
         values.put(GalaxyContentProvider.ITEM_STATE_PROTECT, "0");
+        values.put(GalaxyContentProvider.ITEM_STATE_EASY_HOME, "0");
         cr.insert(uri, values);
     }
 

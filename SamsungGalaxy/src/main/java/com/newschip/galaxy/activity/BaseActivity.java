@@ -49,7 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void startOrStopWatchDogService() {
-        if (ProviderHelper.isEnableSwitchState(mContext) || ProviderHelper.isEnableProtectState(mContext)) {
+        if (ProviderHelper.isEnableSwitchState(mContext) || ProviderHelper.isEnableProtectState(mContext)||ProviderHelper.isEnableEasyHomeState(mContext)) {
             startService(new Intent(mContext, WatchDogService.class));
         } else {
             stopService(new Intent(mContext, WatchDogService.class));

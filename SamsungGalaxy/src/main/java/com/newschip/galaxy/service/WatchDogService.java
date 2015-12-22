@@ -30,6 +30,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
 
     private static boolean mSwitchState = false;
     private static boolean mProtectState = false;
+    private static boolean mEasyHomeState = false;
 
     private static boolean mState = false;
     private KeyguardManager mKeygaurdMgr;
@@ -91,6 +92,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
         public void onChange(boolean selfChange) {
             mSwitchState = getSwitchState();
             mProtectState = getProtectState();
+            mEasyHomeState = getEasyHomeState();
         }
 
     };
@@ -105,6 +107,11 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
         return mProtectState;
     }
 
+    private boolean getEasyHomeState() {
+        mEasyHomeState = ProviderHelper.isEnableEasyHomeState(mContext);
+        return mEasyHomeState;
+    }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -114,7 +121,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
                 notificationIntent, 0);
         Notification notification = new Notification.Builder(mContext)
                 .setAutoCancel(true)
-                .setContentTitle(getText(R.string.newchip))
+                .setContentTitle(getText(R.string.app_name))
                 .setContentText(getResources().getString(R.string.app_runing))
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -124,6 +131,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
 
         getSwitchState();
         getProtectState();
+        getEasyHomeState();
         if (mProtectThread == null) {
             mProtectThread = new Thread(mAppProtectRunnable);
             mProtectThread.start();
@@ -148,7 +156,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
             // TODO Auto-generated method stub
             // ToastUtils.show(mContext, "dog start ...");
             // Log.d(TAG, "mFlags = " + mFlags);
-            while (mProtectState || mSwitchState) {
+            while (mProtectState || mSwitchState || mEasyHomeState) {
                 String packageName = PackageUtils.getTopRunningPkg(mContext);
                 Log.e("kebelzc24", "packageName = " + packageName);
                 if (mProtectState) {
@@ -179,12 +187,11 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
 
                 mLastPkg = packageName;
                 Log.d(TAG, "mLastPkg = " + mLastPkg);
-                if (mSwitchState) {
+                if (mSwitchState || mEasyHomeState) {
                     if (packageName.equals(mContext.getPackageName())
                             || packageName.equals("com.android.settings")) {
                         mIdentifying = false;
                         cancelIdentify();
-
                     } else {
                         if (mIdentifying == false) {
                             mIdentifying = true;
@@ -235,14 +242,27 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
     }
 
     private void cancelIdentify() {
-        mFingerPrint.setmOnIndentifyFinishListener(null);
         mFingerPrint.cancelIdentify();
+        mFingerPrint.setmOnIndentifyFinishListener(null);
+    }
+
+    @Override
+    public void onIdentifyReady() {
+
+    }
+
+    @Override
+    public void onIdentifyStart() {
+        if (!PackageUtils.getTopRunningPkg(mContext).equals(getPackageName())) {
+            //do easy home
+            PackageUtils.goToLauncher(mContext);
+        }
     }
 
     @Override
     public void onIdentifyFinish(int index) {
         if (index == 0) {
-            // do easyhome;
+//fail
         } else {
             String pkg = ProviderHelper.getPackageWithFingerIndex(mContext, index);
             if (!TextUtils.isEmpty(pkg)) {

@@ -83,12 +83,14 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         if (mFingerPrint != null) {
             mFingerPrint.cancelIdentify();
+            mFingerPrint.setmOnIndentifyFinishListener(null);
         }
     }
+
 
     /**
      * 初始化控件
@@ -278,6 +280,25 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
             ToastUtils.show(mContext, "请到设置清除应用数据");
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mFingerPrint != null) {
+            mFingerPrint.cancelIdentify();
+            mFingerPrint.setmOnIndentifyFinishListener(null);
+        }
+    }
+
+    @Override
+    public void onIdentifyReady() {
+
+    }
+
+    @Override
+    public void onIdentifyStart() {
+
     }
 
     @Override

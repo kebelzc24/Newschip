@@ -48,6 +48,7 @@ public class SwitchActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle arg0) {
         // TODO Auto-generated method stub
         super.onCreate(arg0);
+        getSupportActionBar().setTitle(getString(R.string.switch_app));
         mFingerPrint = new FingerPrint(mContext);
         mNoFingerprintLayout = (RelativeLayout) findViewById(R.id.rl_no_fingerprint);
         mStateBtn = (ImageView) findViewById(R.id.iv_imageView);
@@ -66,6 +67,8 @@ public class SwitchActivity extends BaseActivity implements View.OnClickListener
         if (!mFingerPrint.hasRegisteredFinger()){
             mNoFingerprintLayout.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.GONE);
+        } else {
+            mFingerPrint.getRegisteredFingerprintName();
         }
     }
 
@@ -161,8 +164,4 @@ public class SwitchActivity extends BaseActivity implements View.OnClickListener
         }
 
     }
-
-
-
-
 }

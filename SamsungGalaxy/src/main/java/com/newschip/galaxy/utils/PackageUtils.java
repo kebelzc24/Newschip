@@ -123,7 +123,7 @@ public class PackageUtils {
     public static String getForegroundTask(Context context) {
         String currentApp = "null";
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            UsageStatsManager usm = (UsageStatsManager)context.getSystemService("usagestats");
+            UsageStatsManager usm = (UsageStatsManager)context.getSystemService(Context.USAGE_STATS_SERVICE);
             long time = System.currentTimeMillis();
             List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,  time - 1000*1000, time);
             if (appList != null && appList.size() > 0) {
@@ -155,5 +155,12 @@ public class PackageUtils {
         } catch (NameNotFoundException e) {
             return true;
         }
+    }
+
+    public static void goToLauncher(Context context){
+        Intent intent = new Intent("android.intent.action.MAIN");
+        intent.addCategory("android.intent.category.HOME");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }

@@ -36,6 +36,7 @@ public class GalaxyContentProvider extends ContentProvider {
     public static final String TABLE_STATE = "state";
     public static final String ITEM_STATE_SWITCH = "switch_state";
     public static final String ITEM_STATE_PROTECT = "protect_state";
+    public static final String ITEM_STATE_EASY_HOME = "easy_home_state";
     //多媒体文件路径
     public static final String TABLE_MEDIA = "media";
     public static final String ITEM_FILE_NAME = "file_name";
@@ -142,7 +143,7 @@ public class GalaxyContentProvider extends ContentProvider {
             db.execSQL("CREATE TABLE " + TABLE_SWITCH_APP + " (" + ITEM_PACKAGE + ","
                     + ITEM_APP_LABEL + "," + ITEM_FINGER_INDEX + ")");
             db.execSQL("CREATE TABLE " + TABLE_STATE + " (" + ITEM_STATE_PROTECT + ","
-                    + ITEM_STATE_SWITCH  + ")");
+                    + ITEM_STATE_SWITCH  + ","+ITEM_STATE_EASY_HOME+")");
             db.execSQL("CREATE TABLE " + TABLE_MEDIA + " ("
                     + ITEM_FILE_NAME +","+ITEM_OLD_PATH+","+ITEM_NEW_PATH+ ")");
         }

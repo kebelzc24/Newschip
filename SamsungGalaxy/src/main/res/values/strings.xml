@@ -18,6 +18,7 @@
     <string name="switch_app">快速切换应用</string>
     <string name="open_switch_app">开启快速切换应用</string>
     <string name="open_protect_app">开启应用锁</string>
+    <string name="open_easy_home">开启Easy Home</string>
     <string name="switch_app_content">设置指纹和应用关联，可快速切换应用</string>
     <string name="hided_app">已伪装的应用</string>
     <string name="ok">确定</string>
