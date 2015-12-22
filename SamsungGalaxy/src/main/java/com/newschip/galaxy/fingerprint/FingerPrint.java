@@ -105,6 +105,8 @@ public class FingerPrint implements IFingerPrint {
             }
         } catch (UnsupportedOperationException e) {
             Log.d(TAG, "Fingerprint Service is not supported in the device");
+        } catch (Exception e){
+
         }
     }
 
@@ -139,6 +141,13 @@ public class FingerPrint implements IFingerPrint {
             mSpassFingerprint.cancelIdentify();
         } catch (IllegalStateException ise) {
         } catch (UnsupportedOperationException e) {
+        } catch (Exception e){
+
         }
+    }
+
+    @Override
+    public boolean isDeviceSupport() {
+        return mSpass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT);
     }
 }

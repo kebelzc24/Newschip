@@ -41,6 +41,7 @@
     <color name="dark_grey">#FF080808</color>
     <color name="light_grey">#ffbebebe</color>
     <color name="light_grey_1">#FFEEEEEE</color>
+    <color name="half_truans">#ffefefef</color>
 
     <color name="main_color">@color/title_bar_bg</color>
     <color name="dark_main_color">@color/title_bar_bg</color>

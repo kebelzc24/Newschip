@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
+
+
+    <FrameLayout
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:gravity="center"
+            android:horizontalSpacing="2dip"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="3"
+            android:overScrollMode="never"
+            android:padding="2dip"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dip" >
+        </GridView>
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/ll_buttons"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_marginTop="60dp"
+            android:layout_weight="1"
+            android:layout_marginRight="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:mrl_rippleOverlay="true"
+            app:mrl_rippleColor="?attr/colorPrimary">
+            <Button
+                android:id="@+id/btn_select_all"
+                android:background="@drawable/white_button_background"
+                android:textColor="?attr/colorPrimary"
+                android:text="@string/select_all"
+                android:textSize="@dimen/abc_text_size_button_material"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_marginTop="60dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:mrl_rippleOverlay="true"
+            app:mrl_rippleColor="?attr/colorPrimary">
+            <Button
+                android:background="@drawable/white_button_background"
+                android:id="@+id/btn_hide"
+                android:textColor="?attr/colorPrimary"
+                android:text="@string/hide"
+                android:textSize="@dimen/abc_text_size_button_material"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </LinearLayout>
+
+</RelativeLayout>

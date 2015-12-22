@@ -1,0 +1,146 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <RelativeLayout
+        android:id="@+id/rl_image"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/toolbar"
+        android:background="@color/half_truans">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:text="图片"
+            android:textColor="@color/main_color"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/iv_image_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/arrow_collapse" />
+
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/lv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_image"
+        android:layout_marginTop="8dp"
+        android:divider="@null"
+        android:visibility="gone"></ListView>
+
+    <RelativeLayout
+        android:id="@+id/rl_video"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/lv_image"
+        android:layout_marginTop="1dp"
+        android:background="@color/half_truans">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:text="视频"
+            android:textColor="@color/main_color"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/iv_video_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/arrow_collapse" />
+
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/lv_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_video"
+        android:layout_marginTop="8dp"
+        android:divider="@null"
+        android:visibility="gone"></ListView>
+
+    <TextView
+        android:id="@+id/tv_no_hide_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="没有隐藏的照片和视频"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <com.balysv.materialripple.MaterialRippleLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="60dp"
+            android:layout_weight="1"
+            app:mrl_rippleColor="?attr/colorPrimary"
+            app:mrl_rippleOverlay="true">
+
+            <Button
+                android:id="@+id/btn_select_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_button_background"
+                android:text="@string/select_all"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/abc_text_size_button_material" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="60dp"
+            android:layout_weight="1"
+            app:mrl_rippleColor="?attr/colorPrimary"
+            app:mrl_rippleOverlay="true">
+
+            <Button
+                android:id="@+id/btn_hide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_button_background"
+                android:text="@string/rehide"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/abc_text_size_button_material" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

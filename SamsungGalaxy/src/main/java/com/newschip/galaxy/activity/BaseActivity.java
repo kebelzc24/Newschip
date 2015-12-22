@@ -10,8 +10,10 @@ import android.view.View;
 
 import com.newschip.galaxy.R;
 import com.newschip.galaxy.fingerprint.FingerPrint;
+import com.newschip.galaxy.media.ImageDownLoader;
 import com.newschip.galaxy.provider.ProviderHelper;
 import com.newschip.galaxy.service.WatchDogService;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created by LQ on 2015/12/10.
@@ -20,6 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Context mContext;
     public Toolbar mToolbar;
     public FingerPrint mFingerPrint;
+    public ImageLoader mImageLoader;
 
     public abstract int getLayoutView();
 
@@ -28,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutView());
         mContext = this;
+        mImageLoader = ImageDownLoader.getImageLoader();
         initToolbar();
     }
 

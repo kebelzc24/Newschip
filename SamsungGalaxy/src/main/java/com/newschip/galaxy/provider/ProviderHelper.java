@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
 
 /**
  * Created by LQ on 2015/12/10.
@@ -166,7 +167,7 @@ public class ProviderHelper {
         cv.put(GalaxyContentProvider.ITEM_APP_LABEL, label);
 //        cv.put(GalaxyContentProvider.ITEM_FINGER_INDEX, index);
         cr.update(mUri, cv, GalaxyContentProvider.ITEM_FINGER_INDEX + "=?",
-                new String[]{index+""});
+                new String[]{index + ""});
     }
 
     public static boolean isFingerIndexExit(Context context, int index) {
@@ -280,4 +281,38 @@ public class ProviderHelper {
         cr.insert(uri, values);
     }
 
+    public static void insertHideMediaInfo(Context context, String name, String newPath, String oldPath) {
+        ContentResolver cr = context.getContentResolver();
+        Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_MEDIA);
+        ContentValues values = new ContentValues();
+        values.put(GalaxyContentProvider.ITEM_FILE_NAME, name);
+        values.put(GalaxyContentProvider.ITEM_NEW_PATH, newPath);
+        values.put(GalaxyContentProvider.ITEM_OLD_PATH, oldPath);
+        cr.insert(mUri, values);
+    }
+
+    public static String getOldPath(Context context, String newPath) {
+        String path = null;
+        ContentResolver cr = context.getContentResolver();
+        Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_MEDIA);
+        Cursor cu = cr.query(mUri, null, null, null, null);
+        if (cu != null) {
+            while (cu.moveToNext()) {
+                String tmp = cu.getString(cu
+                        .getColumnIndex(GalaxyContentProvider.ITEM_NEW_PATH));
+                if (!TextUtils.isEmpty(tmp) && newPath.equals(tmp)) {
+                    path = cu.getString(cu.getColumnIndex(GalaxyContentProvider.ITEM_OLD_PATH));
+                }
+            }
+            cu.close();
+        }
+        return path;
+    }
+
+    public static void deleteHidePath(Context context, String newPath) {
+        ContentResolver cr = context.getContentResolver();
+        Uri mUri = Uri.parse(CONTENT + GalaxyContentProvider.TABLE_MEDIA);
+        cr.delete(mUri, GalaxyContentProvider.ITEM_NEW_PATH + "=?",
+                new String[]{"" + newPath});
+    }
 }

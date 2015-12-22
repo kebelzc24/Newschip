@@ -29,6 +29,7 @@
     <string name="finger_usage_with_app">该指纹可用于打开%s应用和解锁</string>
     <string name="action_settings">设置</string>
     <string name="action_lock">隐藏文件</string>
+    <string name="show_hide">查看隐藏文件</string>
     <string name="swipe_to_confirm">Swipe to confirm</string>
     <string name="lift_your_finger">Please lift your finger</string>
     <string name="please_wait">请稍后</string>
@@ -195,7 +196,7 @@
 
     <string name="please_encroll">请先录入指纹</string>
     <string name="please_set_pwd">请先设置密码</string>
-    <string name="please_input_pwd">请输入密码</string>
+    <string name="please_input_pwd">请输入指纹或密码</string>
     <string name="please_input_pwd_again">确认密码</string>
     <string name="not_equals">两次输入的密码不一致,请重新输入！</string>
     <string name="password_not_equals">密码错误,请重新输入！</string>
@@ -242,6 +243,10 @@
     <string name="about">关于</string>
     <string name="enroll_more_than_five">录入的指纹不能超过5个</string>
     <string name="contact_us">联系我们</string>
+    <string name="select_all">全选</string>
+    <string name="select_none">全不选</string>
+    <string name="hide">隐藏</string>
+    <string name="rehide">恢复</string>
     <string name="score">给个好评</string>
     <string name="enroll_success">录入成功</string>
     <string name="app_runing">程序正在运行</string>
@@ -253,6 +258,8 @@
     <string name="fast_dail">快速拨号</string>
     <string name="hidden_file">隐藏文件</string>
     <string name="hidden_file_content">隐藏或显示照片视频，保护您的资料</string>
+    <string name="easy_home">Easy Home</string>
+    <string name="easy_home_content">轻触Home键，快速回到桌面</string>
     <string-array name="drawer_content">
         <item>设置</item>
         <item>帮助</item>
@@ -262,4 +269,81 @@
     <string name="title_activity_switch">SwitchActivity</string>
     <string name="no_fingerprint">未找到指纹信息</string>
     <string name="title_activity_identify_finger_print">IdentifyFingerPrintActivity</string>
+    <string name="title_activity_media">MediaActivity</string>
+    <string name="size_duration">%1$s/%2$s</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_main22">Main22Activity</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_easy_home">EasyHomeActivity</string>
 </resources>

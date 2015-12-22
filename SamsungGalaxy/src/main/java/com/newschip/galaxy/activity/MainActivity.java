@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.newschip.galaxy.R;
+import com.newschip.galaxy.fingerprint.FingerPrint;
+import com.newschip.galaxy.utils.ToastUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initRecycleView();
+        mFingerPrint = new FingerPrint(mContext);
     }
 
     @Override
@@ -48,6 +51,10 @@ public class MainActivity extends BaseActivity {
         item = new RecycleViewItem(R.mipmap.app_switch, getResources().getString(R.string.switch_app), getResources().getString(R.string.switch_app_content));
         mRecycleViewItems.add(item);
         item = new RecycleViewItem(R.mipmap.file_hide, getResources().getString(R.string.hidden_file), getResources().getString(R.string.hidden_file_content));
+        mRecycleViewItems.add(item);
+        item = new RecycleViewItem(R.mipmap.easy_home, getResources().getString(R.string.easy_home), getResources().getString(R.string.easy_home_content));
+        mRecycleViewItems.add(item);
+        item = new RecycleViewItem(R.mipmap.about, getResources().getString(R.string.about), getResources().getString(R.string.show_app_info));
         mRecycleViewItems.add(item);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -124,15 +131,25 @@ public class MainActivity extends BaseActivity {
                             startActivity(new Intent(MainActivity.this, AppListActivity.class));
                             break;
                         case 1:
-                            startActivity(new Intent(MainActivity.this, SwitchActivity.class));
+                            if (mFingerPrint.isDeviceSupport()) {
+                                startActivity(new Intent(MainActivity.this, SwitchActivity.class));
+                            } else {
+                                ToastUtils.show(mContext, "您的设备不支持此功能");
+                            }
+
                             break;
                         case 2:
+                            startActivity(new Intent(MainActivity.this, MediaActivity.class));
                             break;
                         case 3:
+                            if (mFingerPrint.isDeviceSupport()) {
+                                startActivity(new Intent(MainActivity.this, EasyHomeActivity.class));
+                            } else {
+                                ToastUtils.show(mContext, "您的设备不支持此功能");
+                            }
                             break;
                         case 4:
-                            break;
-                        case 5:
+                            startActivity(new Intent(MainActivity.this, AboutActivity.class));
                             break;
                         default:
                             break;

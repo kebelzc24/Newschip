@@ -6,7 +6,9 @@ import java.util.ArrayList;
  * Created by LQ on 2015/12/15.
  */
 public interface IFingerPrint {
-    void  initSpass();
+    void initSpass();
+
+    boolean isDeviceSupport();
 
     boolean hasRegisteredFinger();
 
