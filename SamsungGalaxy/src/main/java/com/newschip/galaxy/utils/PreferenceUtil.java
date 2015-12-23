@@ -20,7 +20,36 @@ public class PreferenceUtil {
     public static final String KEY_REGISTER = "register";
     public static final String KEY_PASWORD = "password";
 
+    private static PreferenceUtil preferenceUtil;
+    private String mPname;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences shareditorPreferences;
 
+    public PreferenceUtil(Context context) {
+
+        init(context);
+    }
+    public void init(Context context) {
+        init(context, FILE_GALAXY);
+    }
+    /**
+     * @param context 当前上下文
+     * @param pName 文件名称
+     */
+    private PreferenceUtil(Context context, String pName) {
+        this.mPname = pName;
+        init(context, mPname);
+    }
+
+    public void init(Context context, String pName) {
+        if (shareditorPreferences == null || editor == null) {
+            try {
+                shareditorPreferences = context.getSharedPreferences(pName, 0);
+                editor = shareditorPreferences.edit();
+            } catch (Exception e) {
+            }
+        }
+    }
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *
@@ -181,4 +210,12 @@ public class PreferenceUtil {
         }
     }
 
+    public void saveBoolean(String key, boolean value) {
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    public boolean getBoolean(String key, boolean defaultboolean) {
+        return shareditorPreferences.getBoolean(key, defaultboolean);
+    }
 }

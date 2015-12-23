@@ -13,6 +13,7 @@ import com.newschip.galaxy.fingerprint.FingerPrint;
 import com.newschip.galaxy.media.ImageDownLoader;
 import com.newschip.galaxy.provider.ProviderHelper;
 import com.newschip.galaxy.service.WatchDogService;
+import com.newschip.galaxy.utils.PreferenceUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -23,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Toolbar mToolbar;
     public FingerPrint mFingerPrint;
     public ImageLoader mImageLoader;
+    public PreferenceUtil mSPUtil;
 
     public abstract int getLayoutView();
 
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutView());
         mContext = this;
         mImageLoader = ImageDownLoader.getImageLoader();
+        mSPUtil = new PreferenceUtil(mContext);
         initToolbar();
     }
 
