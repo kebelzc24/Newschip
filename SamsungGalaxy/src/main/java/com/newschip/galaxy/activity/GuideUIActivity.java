@@ -1,20 +1,18 @@
 package com.newschip.galaxy.activity;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import com.newschip.galaxy.R;
-import com.newschip.galaxy.adapter.ViewPagerAdapter;
-import com.newschip.galaxy.utils.CacheUtils;
+import com.newschip.galaxy.utils.PreferenceUtil;
+import com.newschip.galaxy.widget.SplashFramen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,78 +26,67 @@ import java.util.List;
  * @描述: 引导界面
  */
 
-public class GuideUIActivity extends BaseActivity implements OnPageChangeListener {
-    private ViewPager vp;// 页面中的ViewPager
-    private ViewPagerAdapter vpAdapter;
-    private List<View> views;
-    private Button mBtnStart;// 开始按钮
-    // 标记是否是第一次打开
+public class GuideUIActivity extends FragmentActivity {
+    private ViewPager mVPActivity;
+    private SplashFramen mFragment1;
+    private SplashFramen mFragment2;
+    private SplashFramen mFragment3;
+    private List<Fragment> mListFragment = new ArrayList<Fragment>();
+    private PagerAdapter mPgAdapter;
     public static final String KEY_FIRST_START = "is_first_start";
 
     @Override
-    public int getLayoutView() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
-        return R.layout.activity_guide;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        View decorView = getWindow().getDecorView();
-        // 初始化View
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_guide);
+        PreferenceUtil util = new PreferenceUtil(this);
+
+        if(!util.getBoolean(KEY_FIRST_START,true)){
+            finish();
+        }
         initView();
     }
 
     private void initView() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        views = new ArrayList<View>();
-        views.add(inflater.inflate(R.layout.activity_guide_1, null));
-        views.add(inflater.inflate(R.layout.activity_guide_2, null));
-        views.add(inflater.inflate(R.layout.activity_guide_3, null));
-
-        vpAdapter = new ViewPagerAdapter(views, this);
-        vp = (ViewPager) findViewById(R.id.guide_pager);
-
-        vp.setAdapter(vpAdapter);
-        vp.setOnPageChangeListener(this);
-        mBtnStart = (Button) views.get(2).findViewById(R.id.guide_btn_start);
-        mBtnStart.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // 设置已经开启过应用
-                CacheUtils.setBoolean(GuideUIActivity.this,
-                        PasswordActivity.KEY_FIRST_START, false);
-                startActivity(new Intent(GuideUIActivity.this,
-                        MainActivity.class));
-                finish();
-            }
-        });
-
+        mVPActivity = (ViewPager) findViewById(R.id.guide_pager);
+        mFragment1 = new SplashFramen(GuideUIActivity.this,getResources().getDrawable(
+                R.mipmap.guide_1),false);
+        mFragment2 = new SplashFramen(GuideUIActivity.this,getResources().getDrawable(
+                R.mipmap.guide_2),false);
+        mFragment3 = new SplashFramen(GuideUIActivity.this,getResources().getDrawable(
+                R.mipmap.guide_3),true);
+        mListFragment.add(mFragment1);
+        mListFragment.add(mFragment2);
+        mListFragment.add(mFragment3);
+        mPgAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
+                mListFragment);
+        mVPActivity.setAdapter(mPgAdapter);
     }
+    public class ViewPagerAdapter extends FragmentPagerAdapter {
+        private List<Fragment> fragmentList = new ArrayList<Fragment>();
 
-    // 滑动状态改变
-    @Override
-    public void onPageScrollStateChanged(int arg0) {
-        // TODO Auto-generated method stub
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-    }
+        public ViewPagerAdapter(FragmentManager fragmentManager,
+                                List<Fragment> arrayList) {
+            super(fragmentManager);
+            this.fragmentList = arrayList;
+        }
 
-    // 页面被滑动是改变
-    @Override
-    public void onPageScrolled(int arg0, float arg1, int arg2) {
-        // TODO Auto-generated method stub
+        @Override
+        public Fragment getItem(int arg0) {
+            return fragmentList.get(arg0);
+        }
 
-    }
-
-    // 新的页面被选中时
-    @Override
-    public void onPageSelected(int arg0) {
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
 
     }
 }

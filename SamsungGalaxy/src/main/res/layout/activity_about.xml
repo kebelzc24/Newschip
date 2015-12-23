@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/toolbar_layout" />
-    <ScrollView
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
@@ -70,11 +70,19 @@
                     android:background="@drawable/grey_button_background"
                     android:id="@+id/project_home_btn"
                     android:textColor="?attr/colorPrimary"
-                    android:text="@string/score"
+                    android:text="@string/share"
                     android:textSize="@dimen/abc_text_size_button_material"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.balysv.materialripple.MaterialRippleLayout>
         </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="?android:textColorPrimary"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="©2015 Newschip.Inc All Rights Reserved."/>
+    </RelativeLayout>
 </LinearLayout>

@@ -52,7 +52,11 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                 startViewAction(NEWSCHIP_URL);
                 break;
             case R.id.project_home_btn:
-//                startViewAction(BuildConfig.PROJECT_URL);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "一款实用的指纹应用软件-"+getString(R.string.app_name));
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
                 break;
             default:
                 break;

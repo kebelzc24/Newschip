@@ -56,6 +56,7 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("");
         mIntent = getIntent();
         mPackage = mIntent.getStringExtra(EXTRAL_PACKAGE);
         initWidget();// 初始化控件

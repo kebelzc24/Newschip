@@ -1,18 +1,5 @@
 package com.newschip.galaxy.activity;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,11 +14,23 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import cn.trinea.android.common.util.ToastUtils;
 
 import com.newschip.galaxy.R;
 import com.newschip.galaxy.dialog.DialogHelper;
-import com.newschip.galaxy.tools.PreferenceUtil;
+import com.newschip.galaxy.utils.ToastUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginRegisterActivity extends BaseActivity implements OnClickListener {
 
@@ -43,7 +42,7 @@ public class LoginRegisterActivity extends BaseActivity implements OnClickListen
     private final static int PORT = 5099;
     private final String HOST_NAME = "newschip.xicp.net";
     private String mType;
-    
+
     public final String KEY = "has_register";
 
     @Override
@@ -199,7 +198,7 @@ public class LoginRegisterActivity extends BaseActivity implements OnClickListen
             } else {
                 startActivity(new Intent(mContext, MainActivity.class));
             }
-            
+
             finish();
         }
     }

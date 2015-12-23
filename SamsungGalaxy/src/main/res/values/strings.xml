@@ -258,6 +258,7 @@
     <string name="finger_count_full">指纹已录满</string>
     <string name="no_finger_print">未找到指纹</string>
     <string name="fast_dail">快速拨号</string>
+    <string name="share">分享</string>
     <string name="hidden_file">隐藏文件</string>
     <string name="hidden_file_content">隐藏或显示照片视频，保护您的资料</string>
     <string name="easy_home">Easy Home</string>

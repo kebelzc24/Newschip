@@ -42,23 +42,18 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
             .parse("content://com.newschip.fingerprint.AppLockProvider/protect_state");
 
 
-    private static boolean mFlags = false;
+    private static boolean mFlags = true;
 
-    private Intent mIntent;
     private String mLastPkg = "";
 
     private boolean mNoneCheck = false;
-    private String mNoneCheckPkg = "";
-    public final String INDENNTIFY_FILE = "finger_print";
 
     private ScreenLockListener mScreenLockListener;
 
     private Thread mProtectThread;
 
     private Handler mHandler = new Handler();
-    public static final int SHOW_PASSWORD_ACTIVITY_DELAY = 200;
     private boolean mIdentifying = false;
-    private KeyguardManager mKeyguardManager;
     private FingerPrint mFingerPrint;
 
     @Override
@@ -157,57 +152,63 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
             // ToastUtils.show(mContext, "dog start ...");
             // Log.d(TAG, "mFlags = " + mFlags);
             while (mProtectState || mSwitchState || mEasyHomeState) {
-                String packageName = PackageUtils.getTopRunningPkg(mContext);
-                Log.e("kebelzc24", "packageName = " + packageName);
-                if (mProtectState) {
-                    if (!mLastPkg.equals(mContext.getPackageName())) {
-                        if (!mLastPkg.equals(packageName)
-                                && ProviderHelper.isAppProtected(mContext, packageName)) {
-                            if (mNoneCheck) {
-                                mNoneCheck = false;
-                            } else {
-                                mIdentifying = false;
-                                cancelIdentify();
-                                Log.d(TAG, "pkg = " + packageName);
-                                Log.d(TAG, "mLastPkg = " + mLastPkg);
-                                Intent intent = new Intent(
-                                        WatchDogService.this,
-                                        PasswordActivity.class);
-                                // 服务里面是没有任务栈的，所以要指定一个新的任务栈，不然是无法在服务里面启动activity的
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        | Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-                                intent.putExtra(PasswordActivity.EXTRAL_PACKAGE, packageName);
-                                startActivity(intent);
+                if (mFlags) {
+                    String packageName = PackageUtils.getTopRunningPkg(mContext);
+                    Log.e("kebelzc24", "packageName = " + packageName);
+                    if (mProtectState) {
+                        if (!mLastPkg.equals(mContext.getPackageName())) {
+                            if (!mLastPkg.equals(packageName)
+                                    && ProviderHelper.isAppProtected(mContext, packageName)) {
+                                if (mNoneCheck) {
+                                    mNoneCheck = false;
+                                } else {
+                                    mIdentifying = false;
+                                    cancelIdentify();
+                                    Log.d(TAG, "pkg = " + packageName);
+                                    Log.d(TAG, "mLastPkg = " + mLastPkg);
+                                    Intent intent = new Intent(
+                                            WatchDogService.this,
+                                            PasswordActivity.class);
+                                    // 服务里面是没有任务栈的，所以要指定一个新的任务栈，不然是无法在服务里面启动activity的
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            | Intent.FLAG_ACTIVITY_NEW_TASK
+                                            | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+                                    intent.putExtra(PasswordActivity.EXTRAL_PACKAGE, packageName);
+                                    startActivity(intent);
+                                }
                             }
                         }
+
                     }
 
-                }
-
-                mLastPkg = packageName;
-                Log.d(TAG, "mLastPkg = " + mLastPkg);
-                if (mSwitchState || mEasyHomeState) {
-                    if (packageName.equals(mContext.getPackageName())
-                            || packageName.equals("com.android.settings")) {
-                        mIdentifying = false;
-                        cancelIdentify();
-                    } else {
-                        if (mIdentifying == false) {
-                            mIdentifying = true;
+                    mLastPkg = packageName;
+                    Log.d(TAG, "mLastPkg = " + mLastPkg);
+                    if (mSwitchState || mEasyHomeState) {
+                        if (packageName.equals(mContext.getPackageName())
+                                || packageName.equals("com.android.settings")) {
+                            mIdentifying = false;
+                            cancelIdentify();
+                        } else {
+//                        if (mIdentifying == false) {
+//                            mIdentifying = true;
                             startIdentify();
+//                        }
+
                         }
 
                     }
 
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else {
+                    mIdentifying = false;
+                    cancelIdentify();
                 }
 
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
             }
 
         }
@@ -223,7 +224,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
     public void onScreenOff() {
         // TODO Auto-generated method stub
         Log.d(TAG, "onScreenOff()");
-        // mFlags = false;
+         mFlags = false;
         cancelIdentify();
 
     }
