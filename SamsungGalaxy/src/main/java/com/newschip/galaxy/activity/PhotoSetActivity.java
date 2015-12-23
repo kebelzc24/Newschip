@@ -123,7 +123,6 @@ public class PhotoSetActivity extends BaseActivity implements AdapterView.OnItem
                 if (mAdapter.getmSelectList().size() < 1) {
                     ToastUtils.show(mContext, "没有选择项");
                 } else {
-
                     new HideMediaTask(mAdapter.getmSelectList()).execute(0);
                 }
                 break;
@@ -185,7 +184,6 @@ public class PhotoSetActivity extends BaseActivity implements AdapterView.OnItem
             }
         }
     }
-
 
 
     @Override

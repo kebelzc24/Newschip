@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.newschip.galaxy.R;
 import com.newschip.galaxy.provider.ProviderHelper;
+import com.newschip.galaxy.utils.PackageUtils;
+import com.newschip.galaxy.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,16 +123,22 @@ public class AppListActivity extends BaseActivity implements OnClickListener {
     public void onClick(View view) {
         // TODO Auto-generated method stub
         if (view == mRelativeLayout) {
-            if (ProviderHelper.isEnableProtectState(mContext)) {
-                ProviderHelper.enableProtectState(mContext, false);
-                mImageView.setImageResource(R.mipmap.button_unselect);
-                mListView.setVisibility(View.INVISIBLE);
+            if(PackageUtils.hasPermission(mContext)){
+                if (ProviderHelper.isEnableProtectState(mContext)) {
+                    ProviderHelper.enableProtectState(mContext, false);
+                    mImageView.setImageResource(R.mipmap.button_unselect);
+                    mListView.setVisibility(View.INVISIBLE);
+                } else {
+                    ProviderHelper.enableProtectState(mContext, true);
+                    mImageView.setImageResource(R.mipmap.button_selected);
+                    mListView.setVisibility(View.VISIBLE);
+                }
+                startOrStopWatchDogService();
             } else {
-                ProviderHelper.enableProtectState(mContext, true);
-                mImageView.setImageResource(R.mipmap.button_selected);
-                mListView.setVisibility(View.VISIBLE);
+                ToastUtils.show(mContext,"请勾选"+getString(R.string.app_name));
+                PackageUtils.startUsageSetting(mContext);
             }
-            startOrStopWatchDogService();
+
         }
     }
 

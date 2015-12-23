@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.newschip.galaxy.R;
 import com.newschip.galaxy.provider.ProviderHelper;
+import com.newschip.galaxy.utils.PackageUtils;
+import com.newschip.galaxy.utils.ToastUtils;
 
 public class EasyHomeActivity extends BaseActivity implements View.OnClickListener{
     private RelativeLayout mRelativeLayout;
@@ -37,14 +39,20 @@ public class EasyHomeActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == mRelativeLayout) {
-            if (ProviderHelper.isEnableEasyHomeState(mContext)) {
-                ProviderHelper.enableEasyHomeState(mContext, false);
-                mImageView.setImageResource(R.mipmap.button_unselect);
+            if(PackageUtils.hasPermission(mContext)){
+                if (ProviderHelper.isEnableEasyHomeState(mContext)) {
+                    ProviderHelper.enableEasyHomeState(mContext, false);
+                    mImageView.setImageResource(R.mipmap.button_unselect);
+                } else {
+                    ProviderHelper.enableEasyHomeState(mContext, true);
+                    mImageView.setImageResource(R.mipmap.button_selected);
+                }
+                startOrStopWatchDogService();
             } else {
-                ProviderHelper.enableEasyHomeState(mContext, true);
-                mImageView.setImageResource(R.mipmap.button_selected);
+                ToastUtils.show(mContext, "请勾选" + getString(R.string.app_name));
+                PackageUtils.startUsageSetting(mContext);
             }
-            startOrStopWatchDogService();
+
         }
     }
 }

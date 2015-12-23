@@ -17,6 +17,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -116,16 +117,17 @@ public class PackageUtils {
             // getRunningTasks no longer support in android L
             return getForegroundTask(context);
         } else {
-             return am.getRunningTasks(1).get(0).topActivity.getPackageName();
+            return am.getRunningTasks(1).get(0).topActivity.getPackageName();
         }
     }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static String getForegroundTask(Context context) {
         String currentApp = "null";
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            UsageStatsManager usm = (UsageStatsManager)context.getSystemService(Context.USAGE_STATS_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
             long time = System.currentTimeMillis();
-            List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,  time - 1000*1000, time);
+            List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
             if (appList != null && appList.size() > 0) {
                 SortedMap<Long, UsageStats> mySortedMap = new TreeMap<Long, UsageStats>();
                 for (UsageStats usageStats : appList) {
@@ -136,7 +138,7 @@ public class PackageUtils {
                 }
             }
         } else {
-            ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
             currentApp = tasks.get(0).processName;
         }
@@ -144,23 +146,39 @@ public class PackageUtils {
         Log.e("adapter", "Current App in foreground is: " + currentApp);
         return currentApp;
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static boolean needPermissionForBlocking(Context context){
+    public static boolean needPermissionForBlocking(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
             AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
             int mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);
-            return  (mode != AppOpsManager.MODE_ALLOWED);
-        } catch (NameNotFoundException e) {
+            return (mode != AppOpsManager.MODE_ALLOWED);
+        } catch (Exception e) {
+            return true;
+        }
+    }
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static boolean hasPermission(Context context) {
+        try{
+            AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+            int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), context.getPackageName());
+            return mode == AppOpsManager.MODE_ALLOWED;
+        }catch (Exception e){
             return true;
         }
     }
 
-    public static void goToLauncher(Context context){
+    public static void goToLauncher(Context context) {
         Intent intent = new Intent("android.intent.action.MAIN");
         intent.addCategory("android.intent.category.HOME");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void startUsageSetting(Context context) {
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
         context.startActivity(intent);
     }
 }

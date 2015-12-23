@@ -59,7 +59,7 @@
             app:mrl_rippleColor="?attr/colorPrimary">
             <Button
                 android:id="@+id/btn_select_all"
-                android:background="@drawable/white_button_background"
+                android:background="@drawable/grey_button_background"
                 android:textColor="?attr/colorPrimary"
                 android:text="@string/select_all"
                 android:textSize="@dimen/abc_text_size_button_material"
@@ -76,7 +76,7 @@
             app:mrl_rippleOverlay="true"
             app:mrl_rippleColor="?attr/colorPrimary">
             <Button
-                android:background="@drawable/white_button_background"
+                android:background="@drawable/grey_button_background"
                 android:id="@+id/btn_hide"
                 android:textColor="?attr/colorPrimary"
                 android:text="@string/hide"

@@ -116,7 +116,7 @@
                 android:id="@+id/btn_select_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_button_background"
+                android:background="@drawable/grey_button_background"
                 android:text="@string/select_all"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/abc_text_size_button_material" />
@@ -135,7 +135,7 @@
                 android:id="@+id/btn_hide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_button_background"
+                android:background="@drawable/grey_button_background"
                 android:text="@string/rehide"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/abc_text_size_button_material" />

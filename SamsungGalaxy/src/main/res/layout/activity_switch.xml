@@ -11,6 +11,7 @@
         android:id="@+id/switch_layout"
         android:layout_width="match_parent"
         android:layout_height="50dip"
+        android:background="@drawable/grey_button_background"
         android:clickable="true"
         android:paddingLeft="10dip">
 
@@ -34,10 +35,6 @@
             android:src="@mipmap/button_unselect" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="0.1dip"
-        android:background="@color/devide_line" />
 
     <RelativeLayout
         android:id="@+id/rl_no_fingerprint"

@@ -14,6 +14,7 @@
         android:id="@+id/switch_layout"
         android:layout_width="match_parent"
         android:paddingLeft="10dip"
+        android:background="@drawable/grey_button_background"
         android:layout_height="50dip"
         android:clickable="true" >
 

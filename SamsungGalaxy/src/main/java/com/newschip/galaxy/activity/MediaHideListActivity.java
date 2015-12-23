@@ -61,7 +61,6 @@ public class MediaHideListActivity extends BaseActivity implements
     private Button mBtnHide;
 
     private Dialog mDialog;
-    private boolean needRefrsh;
 
 
     @Override
@@ -196,13 +195,6 @@ public class MediaHideListActivity extends BaseActivity implements
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (needRefrsh) {
-            setResult(RESULT_OK, new Intent());
-        }
-    }
 
     @Override
     public void onClick(View view) {
@@ -228,7 +220,6 @@ public class MediaHideListActivity extends BaseActivity implements
                 if (mImageAdapter.getSelectData().size() < 1 && mVideoAdapter.getSelectData().size() < 1) {
                     ToastUtils.show(mContext, "没有选择项");
                 } else {
-                    needRefrsh = true;
                     ArrayList<FileObject> hideObjects = new ArrayList<>();
                     for (FileObject object : mImageAdapter.getSelectData()) {
                         hideObjects.add(object);

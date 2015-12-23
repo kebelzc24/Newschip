@@ -48,7 +48,7 @@
                 app:mrl_rippleOverlay="true"
                 app:mrl_rippleColor="?attr/colorPrimary">
                 <Button
-                    android:background="@drawable/white_button_background"
+                    android:background="@drawable/grey_button_background"
                     android:id="@+id/blog_btn"
                     android:textColor="?attr/colorPrimary"
                     android:text="@string/contact_us"
@@ -67,7 +67,7 @@
                 app:mrl_rippleOverlay="true"
                 app:mrl_rippleColor="?attr/colorPrimary">
                 <Button
-                    android:background="@drawable/white_button_background"
+                    android:background="@drawable/grey_button_background"
                     android:id="@+id/project_home_btn"
                     android:textColor="?attr/colorPrimary"
                     android:text="@string/score"

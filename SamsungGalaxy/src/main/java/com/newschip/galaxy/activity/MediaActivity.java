@@ -85,14 +85,15 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         mBtnSelectAll.setOnClickListener(this);
         mBtnHide.setOnClickListener(this);
         mNoMediaText = (TextView) findViewById(R.id.tv_no_media);
-        new LoadImageTask().execute(0);
-        new LoadVideoTask().execute(0);
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        new LoadImageTask().execute(0);
+        new LoadVideoTask().execute(0);
     }
 
     @Override
@@ -188,8 +189,8 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mDialog = DialogHelper.createLoadingDialog(mContext, "正在加载图片和视频");
-            mDialog.show();
+//            mDialog = DialogHelper.createLoadingDialog(mContext, "正在加载图片和视频");
+//            mDialog.show();
             isImageReady = false;
             if (mImageBean != null) {
                 mImageBean.clear();
@@ -312,6 +313,10 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
+            isVideoReady = true;
+            if (isReady()) {
+                setGridView();
+            }
             if (mVideoBean != null) {
                 new LoadVideoThumbnailTask().execute();
             }
@@ -326,18 +331,28 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
             // TODO Auto-generated method stub
             for(MediaBean bean : mVideoBean) {
                 bean.setmVideoThumbnail(getThumbnail(bean.getmVideoId()));
+                publishProgress(0);
+
             }
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            if(mAdapter!=null){
+                mAdapter.notifyDataSetChanged();
+            }
         }
 
         @Override
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            isVideoReady = true;
-            if (isReady()) {
-                setGridView();
-            }
+//            isVideoReady = true;
+//            if (isReady()) {
+//                setGridView();
+//            }
         }
     }
 
@@ -495,21 +510,9 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == 0) {
-            startActivityForResult(new Intent(mContext, MediaHideListActivity.class), 0);
+            startActivity(new Intent(mContext, MediaHideListActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case RESULT_OK:
-                new LoadImageTask().execute(0);
-                new LoadVideoTask().execute(0);
-                break;
-            default:
-                break;
-        }
-    }
 }

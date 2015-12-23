@@ -7,13 +7,15 @@
     android:orientation="vertical"
     tools:context="com.newschip.galaxy.activity.EasyHomeActivity">
 
-    <include layout="@layout/toolbar_layout"/>
+    <include layout="@layout/toolbar_layout" />
+
     <RelativeLayout
         android:id="@+id/switch_layout"
         android:layout_width="match_parent"
-        android:paddingLeft="10dip"
         android:layout_height="50dip"
-        android:clickable="true" >
+        android:background="@drawable/grey_button_background"
+        android:clickable="true"
+        android:paddingLeft="10dip">
 
         <TextView
             android:id="@+id/tv_open"
@@ -21,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:paddingRight="20dip"
-            android:textSize="20dip"
-            android:text="@string/open_easy_home" />
+            android:text="@string/open_easy_home"
+            android:textSize="20dip" />
 
         <ImageView
             android:id="@+id/imageView"

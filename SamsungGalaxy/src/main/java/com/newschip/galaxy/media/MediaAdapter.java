@@ -90,7 +90,6 @@ public class MediaAdapter extends BaseAdapter {
         final MediaBean bean = mMediaBean.get(position);
         View rootView = convertView;
         if (rootView == null) {
-
             viewHolder = new ViewHolder();
             rootView = mInflater.inflate(R.layout.grid_child_item, null);
             viewHolder.mOneImageView = (ImageView) rootView
@@ -100,40 +99,37 @@ public class MediaAdapter extends BaseAdapter {
             viewHolder.mCheckBox = (ImageView) rootView
                     .findViewById(R.id.child_checkbox);
             viewHolder.frontView = rootView.findViewById(R.id.view_ImageView_up);
-
             viewHolder.mName = (TextView) rootView
                     .findViewById(R.id.tv_name);
             viewHolder.mCountOrDuration = (TextView) rootView
                     .findViewById(R.id.tv_count_or_duration);
             viewHolder.mVideoPlayView = (RelativeLayout)rootView.findViewById(R.id.rl_videoplay);
-            if(bean.getmType() == MediaBean.TYPE_IMAGE){
-                viewHolder.mVideoPlayView.setVisibility(View.GONE);
-                viewHolder.mName.setText(bean.getFolderName());
-                viewHolder.mCountOrDuration
-                        .setText(String.valueOf(bean.getImageCounts()));
-                final String path = bean.getTopImagePath();
-                ImageAware imageAware = new ImageViewAware(viewHolder.mThumbnail, false);
-                mImageLoader.displayImage(Scheme.FILE.wrap(path), imageAware, mDisplayImageOptions);
-
-            } else {
-                viewHolder.mVideoPlayView.setVisibility(View.VISIBLE);
-                if(bean.getmVideoThumbnail() == null){
-                    viewHolder.mOneImageView.setVisibility(View.VISIBLE);
-                } else {
-                    viewHolder.mThumbnail.setImageBitmap(bean.getmVideoThumbnail());
-                }
-                viewHolder.mName.setText(bean.getmVideoName());
-                viewHolder.mCountOrDuration.setText(mContext.getResources().getString(
-                        R.string.size_duration, getVideoSize(bean.getmVideoSize()),
-                        getVideoDuration(bean.getmVideoDuration())));
-            }
-
             rootView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) rootView.getTag();
         }
 
+        if(bean.getmType() == MediaBean.TYPE_IMAGE){
+            viewHolder.mVideoPlayView.setVisibility(View.GONE);
+            viewHolder.mName.setText(bean.getFolderName());
+            viewHolder.mCountOrDuration
+                    .setText(String.valueOf(bean.getImageCounts()));
+            final String path = bean.getTopImagePath();
+            ImageAware imageAware = new ImageViewAware(viewHolder.mThumbnail, false);
+            mImageLoader.displayImage(Scheme.FILE.wrap(path), imageAware, mDisplayImageOptions);
 
+        } else {
+            viewHolder.mVideoPlayView.setVisibility(View.VISIBLE);
+            if(bean.getmVideoThumbnail() == null){
+                viewHolder.mOneImageView.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.mThumbnail.setImageBitmap(bean.getmVideoThumbnail());
+            }
+            viewHolder.mName.setText(bean.getmVideoName());
+            viewHolder.mCountOrDuration.setText(mContext.getResources().getString(
+                    R.string.size_duration, getVideoSize(bean.getmVideoSize()),
+                    getVideoDuration(bean.getmVideoDuration())));
+        }
 
         viewHolder.mThumbnail.setVisibility(View.VISIBLE);
         viewHolder.mCheckBox.setVisibility(View.VISIBLE);
