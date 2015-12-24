@@ -47,6 +47,8 @@ public class PhotoSetActivity extends BaseActivity implements AdapterView.OnItem
     private final int RESULT_SUCCESS = 0;
     private final int RESULT_FAIL = 1;
 
+    private boolean refresh;
+
 
 
     @Override
@@ -123,6 +125,7 @@ public class PhotoSetActivity extends BaseActivity implements AdapterView.OnItem
                 if (mAdapter.getmSelectList().size() < 1) {
                     ToastUtils.show(mContext, "没有选择项");
                 } else {
+                    refresh = true;
                     new HideMediaTask(mAdapter.getmSelectList()).execute(0);
                 }
                 break;
@@ -180,7 +183,7 @@ public class PhotoSetActivity extends BaseActivity implements AdapterView.OnItem
                 ToastUtils.show(mContext, "部分文件操作失败，请重试");
             }
             if(mImageList.size()<1){
-                finish();
+                onBackPressed();
             }
         }
     }
@@ -193,6 +196,11 @@ public class PhotoSetActivity extends BaseActivity implements AdapterView.OnItem
             mAdapter.setMultiChoiseMode(false);
             mAdapter.notifyDataSetChanged();
             return;
+        }
+        if(refresh){
+            Intent data = new Intent();
+            data.putExtra("refresh", true);
+            setResult(RESULT_OK, data);
         }
         super.onBackPressed();
 

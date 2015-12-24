@@ -61,6 +61,7 @@ public class MediaHideListActivity extends BaseActivity implements
     private Button mBtnHide;
 
     private Dialog mDialog;
+    private boolean refresh;
 
 
     @Override
@@ -194,7 +195,16 @@ public class MediaHideListActivity extends BaseActivity implements
 
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if(refresh){
+            Intent data = new Intent();
+            data.putExtra("refresh", true);
+            setResult(RESULT_OK, data);
+        }
+        super.onBackPressed();
+    }
 
     @Override
     public void onClick(View view) {
@@ -220,6 +230,7 @@ public class MediaHideListActivity extends BaseActivity implements
                 if (mImageAdapter.getSelectData().size() < 1 && mVideoAdapter.getSelectData().size() < 1) {
                     ToastUtils.show(mContext, "没有选择项");
                 } else {
+                    refresh = true;
                     ArrayList<FileObject> hideObjects = new ArrayList<>();
                     for (FileObject object : mImageAdapter.getSelectData()) {
                         hideObjects.add(object);

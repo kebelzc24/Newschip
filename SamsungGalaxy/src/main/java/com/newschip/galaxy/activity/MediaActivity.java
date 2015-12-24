@@ -67,6 +67,10 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
     private final int RESULT_SUCCESS = 0;
     private final int RESULT_FAIL = 1;
 
+    private LoadImageTask mLoadImageTask;
+    private LoadVideoTask mLoadVideoTask;
+    private LoadVideoThumbnailTask mLoadVideoThumbnailTask;
+
 
     @Override
     public int getLayoutView() {
@@ -85,15 +89,25 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         mBtnSelectAll.setOnClickListener(this);
         mBtnHide.setOnClickListener(this);
         mNoMediaText = (TextView) findViewById(R.id.tv_no_media);
-
-
+        loadMedia();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        new LoadImageTask().execute(0);
-        new LoadVideoTask().execute(0);
+
+    }
+
+    private void loadMedia() {
+        if (mLoadImageTask == null) {
+            mLoadImageTask = new LoadImageTask();
+        }
+        mLoadImageTask.execute(0);
+
+        if (mLoadVideoTask == null) {
+            mLoadVideoTask = new LoadVideoTask();
+        }
+        mLoadVideoTask.execute(0);
     }
 
     @Override
@@ -121,6 +135,8 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
     }
 
     private void setGridView() {
+        mLoadImageTask = null;
+        mLoadVideoTask = null;
         if (mDialog != null) {
             mDialog.dismiss();
         }
@@ -172,7 +188,7 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
                             bundle.putSerializable(EXTRA_PHOTO_LIST, mChildList);
                             intent.putExtras(bundle);
                             intent.putExtra(EXTRA_ALBUME, fileName);
-                            startActivityForResult(intent, 0);
+                            startActivityForResult(intent, 1);
                         } else {
 
                             playVideo(Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, ""
@@ -318,7 +334,10 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
                 setGridView();
             }
             if (mVideoBean != null) {
-                new LoadVideoThumbnailTask().execute();
+                if (mLoadVideoThumbnailTask == null) {
+                    mLoadVideoThumbnailTask = new LoadVideoThumbnailTask();
+                }
+                mLoadVideoThumbnailTask.execute();
             }
 
         }
@@ -329,7 +348,7 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         @Override
         protected Void doInBackground(Void... arg0) {
             // TODO Auto-generated method stub
-            for(MediaBean bean : mVideoBean) {
+            for (MediaBean bean : mVideoBean) {
                 bean.setmVideoThumbnail(getThumbnail(bean.getmVideoId()));
                 publishProgress(0);
 
@@ -340,7 +359,7 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            if(mAdapter!=null){
+            if (mAdapter != null) {
                 mAdapter.notifyDataSetChanged();
             }
         }
@@ -349,10 +368,7 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-//            isVideoReady = true;
-//            if (isReady()) {
-//                setGridView();
-//            }
+            mLoadVideoThumbnailTask = null;
         }
     }
 
@@ -510,9 +526,36 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == 0) {
-            startActivity(new Intent(mContext, MediaHideListActivity.class));
+            startActivityForResult(new Intent(mContext, MediaHideListActivity.class),1);
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mLoadImageTask!=null){
+            mLoadImageTask.cancel(false);
+            mLoadImageTask=null;
+        }
+        if(mLoadVideoTask!=null){
+            mLoadVideoTask.cancel(false);
+            mLoadVideoTask=null;
+        }
+        if(mLoadVideoThumbnailTask!=null){
+            mLoadVideoThumbnailTask.cancel(false);
+            mLoadVideoThumbnailTask=null;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            boolean refresh = data.getBooleanExtra("refresh", false);
+            if (refresh) {
+                loadMedia();
+            }
+        }
+    }
 }
