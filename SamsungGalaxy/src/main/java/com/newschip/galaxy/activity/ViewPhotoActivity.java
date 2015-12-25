@@ -14,8 +14,8 @@ import android.view.Window;
 
 
 import com.newschip.galaxy.R;
-import com.newschip.galaxy.media.FileObject;
 import com.newschip.galaxy.media.ImageDownLoader;
+import com.newschip.galaxy.media.MediaBean;
 import com.newschip.galaxy.widget.HackyViewPager;
 import com.newschip.galaxy.widget.PhotoView;
 
@@ -28,7 +28,7 @@ public class ViewPhotoActivity extends Activity {
     private List<String> list;
     private Context mContext;
     private int position;
-    private FileObject mFileObject;
+    private MediaBean mMediaBean;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

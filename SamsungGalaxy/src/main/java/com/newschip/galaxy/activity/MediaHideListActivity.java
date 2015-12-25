@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.newschip.galaxy.R;
 import com.newschip.galaxy.dialog.DialogHelper;
-import com.newschip.galaxy.media.FileObject;
+import com.newschip.galaxy.media.MediaBean;
 import com.newschip.galaxy.media.ImageDownLoader;
 import com.newschip.galaxy.media.MediaBean;
 import com.newschip.galaxy.media.MediaUtils;
@@ -44,8 +44,8 @@ import java.util.List;
 public class MediaHideListActivity extends BaseActivity implements
         OnClickListener {
 
-    private ArrayList<FileObject> mImageObject = new ArrayList<>();
-    private ArrayList<FileObject> mVideoObject = new ArrayList<>();
+    private ArrayList<MediaBean> mImageObject = new ArrayList<>();
+    private ArrayList<MediaBean> mVideoObject = new ArrayList<>();
     private TextView mNoMediaText;
 
     private final int RESULT_SUCCESS = 0;
@@ -112,7 +112,7 @@ public class MediaHideListActivity extends BaseActivity implements
                     int count = files.length;// 文件个数
                     for (int i = 0; i < count; i++) {
                         File file = files[i];
-                        FileObject fo = new FileObject(FileObject.TYPE_IMAGE);
+                        MediaBean fo = new MediaBean(MediaBean.TYPE_IMAGE);
                         fo.setName(file.getName());
                         fo.setPath(file.getAbsolutePath());
                         mImageObject.add(fo);
@@ -148,7 +148,7 @@ public class MediaHideListActivity extends BaseActivity implements
                     int count = files.length;// 文件个数
                     for (int i = 0; i < count; i++) {
                         File file = files[i];
-                        FileObject fo = new FileObject(FileObject.TYPE_VIDEO);
+                        MediaBean fo = new MediaBean(MediaBean.TYPE_VIDEO);
                         fo.setName(file.getName());
                         fo.setPath(file.getAbsolutePath());
                         mVideoObject.add(fo);
@@ -231,11 +231,11 @@ public class MediaHideListActivity extends BaseActivity implements
                     ToastUtils.show(mContext, "没有选择项");
                 } else {
                     refresh = true;
-                    ArrayList<FileObject> hideObjects = new ArrayList<>();
-                    for (FileObject object : mImageAdapter.getSelectData()) {
+                    ArrayList<MediaBean> hideObjects = new ArrayList<>();
+                    for (MediaBean object : mImageAdapter.getSelectData()) {
                         hideObjects.add(object);
                     }
-                    for (FileObject object : mVideoAdapter.getSelectData()) {
+                    for (MediaBean object : mVideoAdapter.getSelectData()) {
                         hideObjects.add(object);
                     }
                     new HideMediaTask(hideObjects).execute(0);
@@ -268,11 +268,11 @@ public class MediaHideListActivity extends BaseActivity implements
 
 
     private class HideMediaTask extends AsyncTask<Integer, Integer, Integer> {
-        List<FileObject> mHideBeans = Collections
-                .synchronizedList(new ArrayList<FileObject>());
+        List<MediaBean> mHideBeans = Collections
+                .synchronizedList(new ArrayList<MediaBean>());
 
-        public HideMediaTask(ArrayList<FileObject> beans) {
-            for (FileObject bean : beans) {
+        public HideMediaTask(ArrayList<MediaBean> beans) {
+            for (MediaBean bean : beans) {
                 this.mHideBeans.add(bean);
             }
         }
@@ -286,7 +286,7 @@ public class MediaHideListActivity extends BaseActivity implements
 
         @Override
         protected Integer doInBackground(Integer... params) {
-            for (FileObject fo : mHideBeans) {
+            for (MediaBean fo : mHideBeans) {
                 String path = fo.getPath();
                 String oldPath = ProviderHelper.getOldPath(mContext, path);
                 String dest;
@@ -301,7 +301,7 @@ public class MediaHideListActivity extends BaseActivity implements
                 }
                 ProviderHelper.deleteHidePath(mContext, path);
                 MediaUtils.syncMediaData(mContext, oldPath);
-                if (fo.getmType() == FileObject.TYPE_IMAGE) {
+                if (fo.getmType() == MediaBean.TYPE_IMAGE) {
                     mImageObject.remove(fo);
                     publishProgress(0);
                 } else {
@@ -347,14 +347,14 @@ public class MediaHideListActivity extends BaseActivity implements
 
     public class MediaAdapter extends BaseAdapter {
 
-        private List<FileObject> mFileObject;
+        private List<MediaBean> mMediaBean;
         private ArrayList<String> mFileList = new ArrayList<>();
-        private List<FileObject> mSelectObjects = new ArrayList<>();
+        private List<MediaBean> mSelectObjects = new ArrayList<>();
 
-        public MediaAdapter(List<FileObject> mFileObject) {
-            this.mFileObject = mFileObject;
-            for(FileObject object:mFileObject){
-                if(object.getmType()==FileObject.TYPE_IMAGE){
+        public MediaAdapter(List<MediaBean> mMediaBean) {
+            this.mMediaBean = mMediaBean;
+            for(MediaBean object:mMediaBean){
+                if(object.getmType()==MediaBean.TYPE_IMAGE){
                     mFileList.add(object.getPath());
                 }
             }
@@ -362,8 +362,8 @@ public class MediaHideListActivity extends BaseActivity implements
 
         public void selectAll() {
             mSelectObjects.clear();
-            for (int i = 0; i < mFileObject.size(); i++) {
-                mSelectObjects.add(mFileObject.get(i));
+            for (int i = 0; i < mMediaBean.size(); i++) {
+                mSelectObjects.add(mMediaBean.get(i));
             }
         }
 
@@ -374,13 +374,13 @@ public class MediaHideListActivity extends BaseActivity implements
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            return mFileObject.size();
+            return mMediaBean.size();
         }
 
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
-            return mFileObject.get(position);
+            return mMediaBean.get(position);
         }
 
         @Override
@@ -409,8 +409,8 @@ public class MediaHideListActivity extends BaseActivity implements
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            final FileObject fo = mFileObject.get(position);
-            if (fo.isImage()) {
+            final MediaBean fo = mMediaBean.get(position);
+            if (fo.getmType()==MediaBean.TYPE_IMAGE) {
                 ImageDownLoader.showLocationImage(fo.getPath(), holder.mTypeIcon,
                         R.mipmap.default_photo);
             } else {
@@ -430,7 +430,7 @@ public class MediaHideListActivity extends BaseActivity implements
 
                 @Override
                 public void onClick(View view) {
-                    if(mFileObject.get(position).getmType()==FileObject.TYPE_IMAGE){
+                    if(mMediaBean.get(position).getmType()==MediaBean.TYPE_IMAGE){
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("list", mFileList);
                         bundle.putInt("position", position - 1);
@@ -477,7 +477,7 @@ public class MediaHideListActivity extends BaseActivity implements
         }
 
 
-        public List<FileObject> getSelectData() {
+        public List<MediaBean> getSelectData() {
             return mSelectObjects;
         }
 

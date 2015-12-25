@@ -216,7 +216,7 @@ public class FileUtils {
         String type = getFileType(name);
         if (type != null
                 && (type.equals("jpg") || type.equals("png") || type
-                        .equals("jpeg"))) {
+                        .equals("jpeg")||type.equals("gif")||type.equals("bmp")||type.equals("wbmp"))) {
             return true;
         }
         return false;

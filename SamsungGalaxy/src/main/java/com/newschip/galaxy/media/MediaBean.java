@@ -15,12 +15,11 @@ public class MediaBean {
 
     //图片相关
     //文件夹的第一张图片路径
-    private String mTopImagePath;
+    private String mImagePath;
     //文件夹名
-    private String mFolderName;
+    private String mImageName;
     // 文件夹中的图片数
     private int mImageCounts;
-    private String mParentFolderPath;
 
 
     //视频相关
@@ -37,36 +36,57 @@ public class MediaBean {
         this.mType = mType;
     }
 
-    public String getPath(){
-        if(mType == TYPE_IMAGE){
-            return mTopImagePath;
+    public String getPath() {
+        if (mType == TYPE_IMAGE) {
+            return mImagePath;
         } else {
             return mVideoPath;
         }
     }
+
+    public void setPath(String path) {
+        if (mType == TYPE_IMAGE) {
+            mImagePath = path;
+        } else {
+            mVideoPath = path;
+        }
+    }
+
+    public void setName(String name) {
+        if (mType == TYPE_IMAGE) {
+            mImageName = name;
+        } else {
+            mVideoName = name;
+        }
+    }
+
+    public String getName() {
+        if (mType == TYPE_IMAGE) {
+            return mImageName;
+        } else {
+            return mVideoName;
+        }
+    }
+
     public int getmType() {
         return mType;
     }
-    public String getParentFolderPath() {
-        mParentFolderPath = new File(mTopImagePath).getParentFile()
-                .getAbsolutePath();
-        return mParentFolderPath;
-    }
+
 
     public String getTopImagePath() {
-        return mTopImagePath;
+        return mImagePath;
     }
 
     public void setTopImagePath(String topImagePath) {
-        this.mTopImagePath = topImagePath;
+        this.mImagePath = topImagePath;
     }
 
     public String getFolderName() {
-        return mFolderName;
+        return mImageName;
     }
 
     public void setFolderName(String folderName) {
-        this.mFolderName = folderName;
+        this.mImageName = folderName;
     }
 
     public int getImageCounts() {
@@ -141,15 +161,4 @@ public class MediaBean {
     public void setmVideoThumbnail(Bitmap mVideoThumbnail) {
         this.mVideoThumbnail = mVideoThumbnail;
     }
-
-    private Bitmap getVideoThumbnail(String videoPath, int width, int height,
-                                     int kind) {
-        Bitmap bitmap = null;
-        bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, kind);
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
-                ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-        return bitmap;
-    }
-
-
 }

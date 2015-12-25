@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 
 import com.newschip.galaxy.R;
 import com.newschip.galaxy.dialog.DialogHelper;
-import com.newschip.galaxy.media.FileObject;
 import com.newschip.galaxy.media.ImageDownLoader;
 import com.newschip.galaxy.media.MediaUtils;
 import com.newschip.galaxy.provider.ProviderHelper;
