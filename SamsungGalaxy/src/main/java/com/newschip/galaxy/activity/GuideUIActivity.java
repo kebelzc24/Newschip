@@ -33,7 +33,6 @@ public class GuideUIActivity extends FragmentActivity {
     private SplashFramen mFragment3;
     private List<Fragment> mListFragment = new ArrayList<Fragment>();
     private PagerAdapter mPgAdapter;
-    public static final String KEY_FIRST_START = "is_first_start";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +43,6 @@ public class GuideUIActivity extends FragmentActivity {
         setContentView(R.layout.activity_guide);
         PreferenceUtil util = new PreferenceUtil(this);
 
-        if(!util.getBoolean(KEY_FIRST_START,true)){
-            finish();
-        }
         initView();
     }
 

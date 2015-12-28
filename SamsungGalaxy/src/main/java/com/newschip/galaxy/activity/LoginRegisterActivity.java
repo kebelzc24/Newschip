@@ -193,11 +193,8 @@ public class LoginRegisterActivity extends BaseActivity implements OnClickListen
         } else {
             mSPUtil.saveBoolean(KEY, true);
             ToastUtils.show(mContext, "成功");
-            if(mSPUtil.getBoolean(PasswordActivity.KEY_FIRST_START, true)){
-                startActivity(new Intent(mContext, MainActivity.class));
-            } else {
-                startActivity(new Intent(mContext, MainActivity.class));
-            }
+            startActivity(new Intent(mContext, MainActivity.class));
+
 
             finish();
         }

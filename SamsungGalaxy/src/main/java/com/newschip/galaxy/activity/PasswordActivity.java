@@ -3,6 +3,7 @@ package com.newschip.galaxy.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,8 +46,6 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
 
     public String mPackage;
     public static final String EXTRAL_PACKAGE = "package";
-    // 标记是否是第一次打开
-    public static final String KEY_FIRST_START = "is_first_start";
 
     @Override
     public int getLayoutView() {
@@ -92,6 +91,7 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
             mFingerPrint.cancelIdentify();
             mFingerPrint.setmOnIndentifyFinishListener(null);
         }
+        
     }
 
 
@@ -136,6 +136,7 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
     private void initListener() {
         // 监听最后一个密码框的文本改变事件回调
         et_pwd4.setOnTextChangedListener(new PasswordTextView.OnTextChangedListener() {
+
             @Override
             public void textChanged(String content) {
                 input = et_pwd1.getTextContent() + et_pwd2.getTextContent()
@@ -178,9 +179,11 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
                         if ((Boolean) PreferenceUtil.get(mContext, PreferenceUtil.FILE_GALAXY, PreferenceUtil.KEY_REGISTER, false)) {
                             startActivity(new Intent(PasswordActivity.this,
                                     MainActivity.class));
+
                         } else {
                             startActivity(new Intent(PasswordActivity.this,
                                     GuideUIActivity.class));
+
                         }
 
 
