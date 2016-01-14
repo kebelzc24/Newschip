@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -33,6 +34,7 @@ public class SwitchActivity extends BaseActivity implements View.OnClickListener
     private ImageView mStateBtn;
     private TextView mTextView;
     private ListView mListView;
+    private LinearLayout mReadMe;
 
     private ArrayList<HashMap<String, Object>> mListItems;
     private static final String ITEM_NAME = "itemName";
@@ -55,15 +57,17 @@ public class SwitchActivity extends BaseActivity implements View.OnClickListener
         mNoFingerprintLayout = (RelativeLayout) findViewById(R.id.rl_no_fingerprint);
         mStateBtn = (ImageView) findViewById(R.id.iv_imageView);
         mStateBtn.setOnClickListener(this);
-
+        mReadMe = (LinearLayout)findViewById(R.id.ll_readme);
         mTextView = (TextView) findViewById(R.id.tv_switch);
         mListView = (ListView) findViewById(R.id.lv_listView);
         mListItems = new ArrayList<HashMap<String, Object>>();
         if (ProviderHelper.isEnableSwitchState(mContext)) {
+            mReadMe.setVisibility(View.GONE);
             mListView.setVisibility(View.VISIBLE);
             mStateBtn.setImageResource(R.mipmap.button_selected);
         } else {
-            mListView.setVisibility(View.INVISIBLE);
+            mReadMe.setVisibility(View.VISIBLE);
+            mListView.setVisibility(View.GONE);
             mStateBtn.setImageResource(R.mipmap.button_unselect);
         }
         if (!mFingerPrint.hasRegisteredFinger()){
@@ -84,11 +88,13 @@ public class SwitchActivity extends BaseActivity implements View.OnClickListener
                 if (ProviderHelper.isEnableSwitchState(mContext)) {
                     ProviderHelper.enableSwitchState(mContext,false);
                     mStateBtn.setImageResource(R.mipmap.button_unselect);
-                    mListView.setVisibility(View.INVISIBLE);
+                    mListView.setVisibility(View.GONE);
+                    mReadMe.setVisibility(View.VISIBLE);
                 } else {
                     ProviderHelper.enableSwitchState(mContext, true);
                     mStateBtn.setImageResource(R.mipmap.button_selected);
                     mListView.setVisibility(View.VISIBLE);
+                    mReadMe.setVisibility(View.GONE);
                 }
                 startOrStopWatchDogService();
             } else {

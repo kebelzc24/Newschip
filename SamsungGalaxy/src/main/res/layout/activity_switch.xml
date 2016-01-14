@@ -54,6 +54,47 @@
     <ListView
         android:id="@+id/lv_listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"
+        android:visibility="gone"></ListView>
+
+    <LinearLayout
+        android:id="@+id/ll_readme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/white_button_background"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能说明"
+                android:textColor="@color/grey"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="6dp"
+                android:text="通过不同的指纹关联不同的应用，在任意界面输入指纹就可以切换到相关的应用。\n1.首先需要录入多个指纹。\n2.点击指纹列表的指纹关联一个应用，关联的应用在输入该指纹时会被启动。"
+                android:textColor="@color/grey"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>

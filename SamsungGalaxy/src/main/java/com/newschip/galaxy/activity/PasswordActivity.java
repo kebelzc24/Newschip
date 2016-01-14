@@ -3,7 +3,6 @@ package com.newschip.galaxy.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -46,6 +45,8 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
 
     public String mPackage;
     public static final String EXTRAL_PACKAGE = "package";
+    // 标记是否是第一次打开
+    public static final String KEY_FIRST_START = "is_first_start";
 
     @Override
     public int getLayoutView() {

@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.newschip.galaxy.R;
 import com.newschip.galaxy.dialog.DialogHelper;
@@ -90,6 +91,7 @@ public class MediaActivity extends BaseActivity implements MediaAdapter.OnMediaS
         mBtnHide.setOnClickListener(this);
         mNoMediaText = (TextView) findViewById(R.id.tv_no_media);
         loadMedia();
+        ToastUtils.show(mContext,"长按图标可选择需要隐藏的文件", Toast.LENGTH_SHORT);
     }
 
     @Override

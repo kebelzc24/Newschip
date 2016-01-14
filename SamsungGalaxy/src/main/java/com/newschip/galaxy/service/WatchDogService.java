@@ -8,8 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.IBinder;
+import android.os.*;
+import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -32,10 +32,6 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
     private static boolean mProtectState = false;
     private static boolean mEasyHomeState = false;
 
-    private static boolean mState = false;
-    private KeyguardManager mKeygaurdMgr;
-
-
     private Uri mSwitchUri = Uri
             .parse("content://com.newschip.fingerprint.AppLockProvider/switch_state");
     private Uri mProtectUri = Uri
@@ -52,7 +48,6 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
 
     private Thread mProtectThread;
 
-    private Handler mHandler = new Handler();
     private boolean mIdentifying = false;
     private FingerPrint mFingerPrint;
 
@@ -68,10 +63,8 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
         super.onCreate();
         mContext = this;
 
-        mKeygaurdMgr = (KeyguardManager) mContext
-                .getSystemService(Context.KEYGUARD_SERVICE);
-        // mScreenLockListener = new ScreenLockListener(mContext);
-        // mScreenLockListener.setScreenStateListener(this);
+        mScreenLockListener = new ScreenLockListener(mContext);
+        mScreenLockListener.setScreenStateListener(this);
         getContentResolver().registerContentObserver(mSwitchUri, true,
                 mContentObserver);
         getContentResolver().registerContentObserver(mProtectUri, true,
@@ -224,9 +217,9 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
     public void onScreenOff() {
         // TODO Auto-generated method stub
         Log.d(TAG, "onScreenOff()");
-         mFlags = false;
+        mFlags = false;
         cancelIdentify();
-
+        android.os.Process.killProcess(Process.myPid());
     }
 
     @Override
@@ -263,7 +256,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
     @Override
     public void onIdentifyFinish(int index) {
         if (index == 0) {
-//fail
+         //fail
         } else {
             String pkg = ProviderHelper.getPackageWithFingerIndex(mContext, index);
             if (!TextUtils.isEmpty(pkg)) {

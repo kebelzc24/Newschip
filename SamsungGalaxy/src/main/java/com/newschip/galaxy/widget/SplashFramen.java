@@ -54,6 +54,8 @@ public class SplashFramen extends Fragment {
                         // TODO Auto-generated method stub
                         // 通过preference文件保存结果，只显示一次引导页
                         PreferenceUtil util = new PreferenceUtil(mContext);
+                        util.saveBoolean(
+                                PasswordActivity.KEY_FIRST_START, false);
                         startActivity(new Intent(getActivity(),
                                 MainActivity.class));
                        getActivity().finish();

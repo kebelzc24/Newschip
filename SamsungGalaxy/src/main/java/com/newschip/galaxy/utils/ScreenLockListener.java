@@ -62,7 +62,6 @@ public class ScreenLockListener {
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_USER_PRESENT);
         mContext.registerReceiver(mScreenReceiver, filter);
-        ToastUtils.show(mContext, "registerListener()");
     }
 
     public interface ScreenStateListener {
