@@ -159,6 +159,11 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
                                     cancelIdentify();
                                     Log.d(TAG, "pkg = " + packageName);
                                     Log.d(TAG, "mLastPkg = " + mLastPkg);
+                                    try {
+                                        Thread.sleep(100);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
                                     Intent intent = new Intent(
                                             WatchDogService.this,
                                             PasswordActivity.class);
@@ -219,7 +224,6 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
         Log.d(TAG, "onScreenOff()");
         mFlags = false;
         cancelIdentify();
-        android.os.Process.killProcess(Process.myPid());
     }
 
     @Override

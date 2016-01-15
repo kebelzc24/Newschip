@@ -42,7 +42,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/white_button_background"
+        android:background="@drawable/grey_button_background"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:lineSpacingExtra="6dp"
-                android:text="通常按下Home键就可以回到桌面,开启该功能后，在任意界面只需要轻触下Home键，而不需要按下，即可快速回到桌面"
+                android:text="通常按下Home键就可以回到桌面,开启该功能后，在任意界面不需要按下只需要轻触Home键，即可快速回到桌面。"
                 android:textColor="@color/grey"
                 android:textSize="18sp" />
         </LinearLayout>
