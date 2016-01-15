@@ -31,6 +31,7 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
     private static boolean mSwitchState = false;
     private static boolean mProtectState = false;
     private static boolean mEasyHomeState = false;
+    private boolean mHasCancel = false;
 
     private Uri mSwitchUri = Uri
             .parse("content://com.newschip.fingerprint.AppLockProvider/switch_state");
@@ -235,13 +236,18 @@ public class WatchDogService extends Service implements ScreenLockListener.Scree
     }
 
     private void startIdentify() {
+        mHasCancel = false;
         mFingerPrint.setmOnIndentifyFinishListener(this);
         mFingerPrint.startIdentify();
     }
 
     private void cancelIdentify() {
-        mFingerPrint.cancelIdentify();
-        mFingerPrint.setmOnIndentifyFinishListener(null);
+        if(!mHasCancel){
+            mHasCancel = true;
+            mFingerPrint.cancelIdentify();
+            mFingerPrint.setmOnIndentifyFinishListener(null);
+        }
+
     }
 
     @Override

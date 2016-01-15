@@ -71,6 +71,14 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
         } else {
             mType = TYPE_CHECK_PASSWORD;
             mFingerPrint = new FingerPrint(mContext);
+            mFingerPrint.setmOnIndentifyFinishListener(PasswordActivity.this);
+            new Thread(){
+                @Override
+                public void run() {
+                    mFingerPrint.startIdentify();
+                }
+            }.start();
+
         }
 
 
@@ -80,8 +88,7 @@ public class PasswordActivity extends BaseActivity implements OnClickListener, F
     protected void onResume() {
         super.onResume();
         if (mFingerPrint != null) {
-            mFingerPrint.setmOnIndentifyFinishListener(PasswordActivity.this);
-            mFingerPrint.startIdentify();
+
         }
     }
 
